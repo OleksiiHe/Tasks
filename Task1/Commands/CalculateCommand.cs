@@ -60,29 +60,6 @@ namespace Task1
                         break;
                 }
 
-                if (_mainWindowViewModel.FormulaType == "Area")
-                {
-                    if (_mainWindowViewModel.FigureType == "Ellipse")
-                    {
-                        result = new FigureBuilder(_mainWindowViewModel.EllipseViewModel).figureBase.Area;
-                    }
-
-                    if (_mainWindowViewModel.FigureType == "Rectangle")
-                    {
-                        result = new FigureBuilder(_mainWindowViewModel.RectangleViewModel).figureBase.Area;
-                    }
-
-                    if (_mainWindowViewModel.FigureType == "Trapezoid")
-                    {
-                        result = new FigureBuilder(_mainWindowViewModel.TrapezoidViewModel).figureBase.Area;
-                    }
-
-                    if (_mainWindowViewModel.FigureType == "Triangle")
-                    {
-                        result = new FigureBuilder(_mainWindowViewModel.TriangleViewModel).figureBase.Area;
-                    }
-                }
-
                 _mainWindowViewModel.Result = $"Result {result}";
             }
             catch (Exception)
