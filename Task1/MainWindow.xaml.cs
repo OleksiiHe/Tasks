@@ -23,7 +23,7 @@ namespace Task1
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainWindowViewModel(); //TODO: Setup with xaml
+            //DataContext = new MainWindowViewModel(); //TODO: Setup with xaml
         }
     }
 }
