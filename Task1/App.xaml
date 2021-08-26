@@ -5,7 +5,10 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            
+            <!--<ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Task1;component/Resources/Images.xaml"/>
+            </ResourceDictionary.MergedDictionaries>-->
+
             <DataTemplate x:Key="EllipseTemplate">
                 <local:EllipseView/>
             </DataTemplate>
@@ -23,27 +26,36 @@
             </DataTemplate>
 
             <Style x:Key="FigureContentStyle">
-                <Setter Property="ContentControl.ContentTemplate" Value="{StaticResource Default}"/>
+                <Setter Property="ContentControl.ContentTemplate" 
+                        Value="{StaticResource Default}"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding FigureType}" 
                                  Value="Ellipse">
                         <Setter Property="ContentControl.ContentTemplate" 
                                 Value="{StaticResource EllipseTemplate}"/>
+                        <Setter Property="Image.Source" 
+                                Value="/Resources/Images/Ellipse.jpg"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding FigureType}" 
                                  Value="Rectangle">
                         <Setter Property="ContentControl.ContentTemplate" 
                                 Value="{StaticResource RectangleTemplate}"/>
+                        <Setter Property="Image.Source" 
+                                Value="/Resources/Images/Rectangle.jpg"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding FigureType}" 
                                  Value="Trapezoid">
                         <Setter Property="ContentControl.ContentTemplate" 
                                 Value="{StaticResource TrapezoidTemplate}"/>
+                        <Setter Property="Image.Source" 
+                                Value="/Resources/Images/Trapezoid.jpg"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding FigureType}" 
                                  Value="Triangle">
                         <Setter Property="ContentControl.ContentTemplate" 
                                 Value="{StaticResource TriangleTemplate}"/>
+                        <Setter Property="Image.Source" 
+                                Value="/Resources/Images/Triangle.jpg"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -56,7 +68,9 @@
                 <Setter Property="StackPanel.Orientation" 
                         Value="Horizontal"/>
                 <Setter Property="StackPanel.HorizontalAlignment" 
-                        Value="Center"/>
+                        Value="Right"/>
+                <Setter Property="StackPanel.Margin" 
+                        Value="0 0 50 0"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding FormulaType}" 
                                  Value="Area">
@@ -78,7 +92,9 @@
                 <Setter Property="Orientation" 
                         Value="Horizontal"/>
                 <Setter Property="HorizontalAlignment" 
-                        Value="Center"/>
+                        Value="Right"/>
+                <Setter Property="StackPanel.Margin" 
+                        Value="0 0 50 0"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding FormulaType}" 
                                  Value="Area">
@@ -95,7 +111,9 @@
                 <Setter Property="Orientation" 
                         Value="Horizontal"/>
                 <Setter Property="HorizontalAlignment" 
-                        Value="Center"/>
+                        Value="Right"/>
+                <Setter Property="StackPanel.Margin" 
+                        Value="0 0 50 0"/>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding FormulaType}" 
                                  Value="Perimeter">
@@ -114,6 +132,8 @@
                         Value="20"/>
                 <Setter Property="FontWeight" 
                         Value="Bold"/>
+                <Setter Property="HorizontalAlignment" 
+                        Value="Center"/>
             </Style>
             
             <Style x:Key="ParameterTextBlock" 
@@ -127,17 +147,62 @@
                         Value="Bold"/>
             </Style>
 
-            <Style x:Key="ParameterTextBox" 
-                   TargetType="TextBox">
-                <Setter Property="Margin" 
+            <ControlTemplate x:Key="validationTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <AdornedElementPlaceholder/>
+                    <TextBlock Foreground="Red" 
+                               FontSize="26"
+                               FontWeight="Bold"
+                               Padding="5 -9 0 0">!
+                    </TextBlock>
+                </StackPanel>
+            </ControlTemplate>
+
+            <Style x:Key="ParameterTextBox">
+                <Setter Property="TextBox.Margin" 
                         Value="5 5 5 5"/>
-                <Setter Property="Width" 
+                <Setter Property="TextBox.Width" 
                         Value="50"/>
-                <Setter Property="Height" 
+                <Setter Property="TextBox.Height" 
                         Value="20"/>
-                <Setter Property="Text" 
-                        Value=""/>
+                <!--<Setter Property="Button.IsEnabled" Value="True"/>-->
+                <Setter Property="Validation.ErrorTemplate" 
+                        Value="{StaticResource validationTemplate}"/>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" 
+                             Value="true">
+                        <Setter Property="TextBox.ToolTip"
+                                Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                        <Setter Property="TextBox.Foreground" 
+                                Value="Red"/>
+                        <!--<Setter Property="Button.IsEnabled" Value="False"/>-->
+                    </Trigger>
+                </Style.Triggers>
             </Style>
+
+            <!--<Style x:Key="ButtonDisabler"
+                   TargetType="Button">
+                <Setter Property="Visibility" 
+                        Value="Collapsed"/>
+                <Setter Property="HorizontalAlignment" 
+                        Value="Center"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding FormulaType}" 
+                                 Value="Area">
+                        <Setter Property="Visibility" 
+                                Value="Visible"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding FormulaType}" 
+                                 Value="Perimeter">
+                        <Setter Property="Visibility" 
+                                Value="Visible"/>
+                    </DataTrigger>
+                    <Trigger Property="Validation.HasError" Value="true">
+                        <Setter Property="IsEnabled" Value="False"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>-->
 
         </ResourceDictionary>
     </Application.Resources>

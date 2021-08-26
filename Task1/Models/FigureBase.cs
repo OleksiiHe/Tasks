@@ -2,7 +2,7 @@
 {
     public class FigureBase
     {
-        public double Area { get; set; }
-        public double Perimeter { get; set; }
+        public double? Area { get; set; }
+        public double? Perimeter { get; set; }
     }
 }

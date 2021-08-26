@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="600">
+        Title="MainWindow" Height="500" Width="600">
     <!--<d:DataContext="{d:DesignInstance local:MainWindowViewModel}">-->
     
     <Grid>
@@ -17,23 +17,22 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0"
                     Grid.Column="0"
                     Orientation="Vertical"
                     Margin="0 10 0 0">
-        <TextBox Text="Figure" 
+            <TextBox Text="Figure" 
                  BorderThickness="0"
                  VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  FontSize="16"
                  FontWeight="Bold"
                  Width="Auto"/>
-
-            <ComboBox Width="100"
+            <ComboBox x:Name="FigureTypeComboBox" Width="100"
                       Height="20"
                       Margin="0 10 0 0"
                       IsEditable="true"
@@ -42,8 +41,6 @@
             <!--<ComboBoxItem IsSelected="True">
                     <TextBlock />
                 </ComboBoxItem>-->
-
-
         </StackPanel>
 
         <StackPanel Grid.Row="0"
@@ -57,7 +54,6 @@
                      FontSize="16"
                      FontWeight="Bold"
                      Width="Auto"/>
-
             <ComboBox Width="100"
                       Height="20"
                       Margin="0 10 0 0"
@@ -75,42 +71,43 @@
                     FontSize="20"
                     FontWeight="Bold"
                     Foreground="Red"
-                    Text="{Binding ErrorMessage}">
-        </TextBlock>
+                    Text="{Binding ErrorMessage}"/>
 
-        <!--<Image  Grid.Row="2"
-                Grid.ColumnSpan="2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Top"/>-->
+        <Image  Grid.Row="2"
+                Grid.Column="0"
+                HorizontalAlignment="Stretch"
+                Margin="0 30 0 0"
+                Style="{StaticResource FigureContentStyle}"/>
+
 
         <ContentControl Grid.Row="2"
-                        Grid.ColumnSpan="2"
+                        Grid.Column="1"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Height="Auto"
                         Content="{Binding}"
-                        Style="{StaticResource FigureContentStyle}">
-        </ContentControl>
+                        Style="{StaticResource FigureContentStyle}"/>
 
-        <Button Grid.Row="3"
-                Grid.ColumnSpan="2"
-                Width="100"
-                Margin="10 10 10 10"
-                Style="{StaticResource GeneralRequirement}"
-                Content="Calculate" 
-                Command="{Binding CalculateCommand}"                                               
-                IsDefault="True"/>
+        <Button x:Name="CalculateButton"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    Width="100"
+                    Margin="10 10 10 10"
+                    Content="Calculate" 
+                    Style="{StaticResource GeneralRequirement}"
+                    Command="{Binding CalculateCommand}"                                               
+                    IsDefault="True"/>
 
-        <TextBlock Name="ResultBlock"
-                   Grid.Row="4"
-                Grid.ColumnSpan="2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Bottom"
-                Width="Auto"
-                Height="Auto"
-                FontSize="20"
-                FontWeight="Bold"
-                Text="{Binding Result}">
-        </TextBlock>
+        <TextBlock  Name="ResultBlock"
+                    Grid.Row="4"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Width="Auto"
+                    Height="Auto"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Text="{Binding Result}"/>
     </Grid>
 </Window>

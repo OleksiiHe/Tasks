@@ -19,19 +19,37 @@
         <StackPanel Grid.Row="1"
                     Style="{StaticResource GeneralRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="l"/>
+                       Text="Length l"/>
             <TextBox Name="LengthLBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding RectangleViewModel.LengthL}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="RectangleViewModel.LengthL"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="2"
                     Style="{StaticResource GeneralRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="w"/>
+                       Text="Width w"/>
             <TextBox Name="WidthWBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding RectangleViewModel.WidthW}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="RectangleViewModel.WidthW"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>            
         </StackPanel>
     </Grid>
 </UserControl>

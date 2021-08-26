@@ -6,12 +6,12 @@ namespace Task1
     {
         private const double _pi = Math.PI;
 
-        private double A;
+        private double? A;
 
-        public double GetEllipseArea(Ellipse ellipse)
+        public double? GetEllipseArea(Ellipse ellipse)
         {
-            double a = ellipse.MajorRadiusA;
-            double b = ellipse.MinorRadiusB;
+            double? a = ellipse.MajorRadiusA;
+            double? b = ellipse.MinorRadiusB;
 
             A = ellipse.Area;
 
@@ -21,10 +21,10 @@ namespace Task1
             return A;
         }
 
-        public double GetRectangleArea(Rectangle rectangle)
+        public double? GetRectangleArea(Rectangle rectangle)
         {
-            double l = rectangle.LengthL;
-            double w = rectangle.WidthW;
+            double? l = rectangle.LengthL;
+            double? w = rectangle.WidthW;
 
             A = rectangle.Area;
 
@@ -34,11 +34,11 @@ namespace Task1
             return A;
         }
 
-        public double GetTrapezoidArea(Trapezoid trapezoid)
+        public double? GetTrapezoidArea(Trapezoid trapezoid)
         {
-            double a = trapezoid.BaseA;
-            double b = trapezoid.BaseB;
-            double h = trapezoid.HeightToB;
+            double? a = trapezoid.BaseA;
+            double? b = trapezoid.BaseB;
+            double? h = trapezoid.HeightToB;
 
             A = trapezoid.Area;
 
@@ -48,10 +48,10 @@ namespace Task1
             return A;
         }
 
-        public double GetTriangleArea(Triangle triangle)
+        public double? GetTriangleArea(Triangle triangle)
         {
-            double b = triangle.BaseB;
-            double h = triangle.HeightToB;
+            double? b = triangle.BaseB;
+            double? h = triangle.HeightToB;
 
             A = triangle.Area;
 

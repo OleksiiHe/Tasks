@@ -22,46 +22,91 @@
         <StackPanel Grid.Row="1"
                     Style="{StaticResource GeneralRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="a"/>
+                       Text="Base a"/>
             <TextBox Name="BaseABox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TrapezoidViewModel.BaseA}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TrapezoidViewModel.BaseA"
+                                 ValidatesOnExceptions="True"
+                                 UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="2"
                     Style="{StaticResource GeneralRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="b"/>
+                       Text="Base b"/>
             <TextBox Name="BaseBBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TrapezoidViewModel.BaseB}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TrapezoidViewModel.BaseB"
+                                 ValidatesOnExceptions="True"
+                                 UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="3"
                     Style="{StaticResource PerimeterRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="c"/>
+                       Text="Side c"/>
             <TextBox Name="SideCBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TrapezoidViewModel.SideC}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TrapezoidViewModel.SideC"
+                                 ValidatesOnExceptions="True"
+                                 UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="4"
                     Style="{StaticResource PerimeterRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="d"/>
+                       Text="Side d"/>
             <TextBox Name="SideDBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TrapezoidViewModel.SideD}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TrapezoidViewModel.SideD"
+                                 ValidatesOnExceptions="True"
+                                 UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="5"
                     Style="{StaticResource AreaRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="h"/>
+                       Text="Height h"/>
             <TextBox Name="HeightToBBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TrapezoidViewModel.HeightToB}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TrapezoidViewModel.HeightToB"
+                                 ValidatesOnExceptions="True"
+                                 UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -2,7 +2,7 @@
 {
     public class Ellipse : FigureBase
     {
-        public double MajorRadiusA { get; set; }
-        public double MinorRadiusB { get; set; }
+        public double? MajorRadiusA { get; set; }
+        public double? MinorRadiusB { get; set; }
     }
 }

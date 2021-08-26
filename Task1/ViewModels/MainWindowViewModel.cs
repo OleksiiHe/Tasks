@@ -83,6 +83,7 @@ namespace Task1
                 _figureType = value;
                 OnPropertyChanged();
                 Result = "";
+                ErrorMessage = "";
             }
         }
 
@@ -106,6 +107,7 @@ namespace Task1
                 _formulaType = value;
                 OnPropertyChanged();
                 Result = "";
+                ErrorMessage = "";
             }
         }
 

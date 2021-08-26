@@ -5,7 +5,7 @@ namespace Task1
 {
     class CalculateCommand : ICommand
     {
-        public double result;
+        public double? result;
         private readonly MainWindowViewModel _mainWindowViewModel;
 
         public CalculateCommand(MainWindowViewModel mainWindowViewModel)
@@ -24,7 +24,6 @@ namespace Task1
         {
             try
             {
-
                 switch((_mainWindowViewModel.FigureType, _mainWindowViewModel.FormulaType))
                 {
                     case ("Ellipse", "Area"):
@@ -60,11 +59,19 @@ namespace Task1
                         break;
                 }
 
-                _mainWindowViewModel.Result = $"Result {result}";
+                if(result == null)
+                {
+                    _mainWindowViewModel.Result = "";
+                    _mainWindowViewModel.ErrorMessage = "Fill in all the fields, please.";
+                }
+                else
+                {
+                    _mainWindowViewModel.Result = $"Result: {result}";
+                }
             }
             catch (Exception)
             {
-                _mainWindowViewModel.ErrorMessage = "Something wrong! Check all fields, please!";
+                _mainWindowViewModel.ErrorMessage = "Something wrong! Check all fields, please.";
             }
         }
     }

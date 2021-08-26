@@ -18,7 +18,6 @@
             ellipse.Area = _areaCalculator.GetEllipseArea(ellipse);
             ellipse.Perimeter = _perimeterCalculator.GetEllipsePerimeter(ellipse);
 
-
             figureBase = (FigureBase)ellipse;
         }
 
@@ -33,7 +32,6 @@
             rectangle.Area = _areaCalculator.GetRectangleArea(rectangle);
             rectangle.Perimeter = _perimeterCalculator.GetRectanglePerimeter(rectangle);
 
-
             figureBase = (FigureBase)rectangle;
         }
 
@@ -45,7 +43,7 @@
                 BaseB = trapezoidViewModel.BaseB,
                 SideC = trapezoidViewModel.SideC,
                 SideD = trapezoidViewModel.SideD,
-                HeightToB = trapezoidViewModel.HeightToB
+                HeightToB = trapezoidViewModel.HeightToB 
             };
 
             trapezoid.Area = _areaCalculator.GetTrapezoidArea(trapezoid);

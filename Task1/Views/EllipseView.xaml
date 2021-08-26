@@ -17,21 +17,41 @@
                    Text="Ellipse parameters"/>
 
         <StackPanel Grid.Row="1"
+                    Margin="0 0 15 0"
                     Style="{StaticResource GeneralRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="a"/>
+                       Text="Major Radius a"/>
             <TextBox Name="MajorRadiusABox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding EllipseViewModel.MajorRadiusA}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="EllipseViewModel.MajorRadiusA"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="2"
+                    Margin="0 0 15 0"
                     Style="{StaticResource GeneralRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="b"/>
+                       Text="Minor Radius b"/>
             <TextBox Name="MinorRadiusBBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding EllipseViewModel.MinorRadiusB}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="EllipseViewModel.MinorRadiusB"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -2,7 +2,7 @@
 {
     public class Rectangle : FigureBase
     {
-        public double LengthL { get; set; }
-        public double WidthW { get; set; }
+        public double? LengthL { get; set; }
+        public double? WidthW { get; set; }
     }
 }

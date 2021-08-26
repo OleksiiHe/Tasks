@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\" />
+    <None Remove="Resources\Images\Ellipse.jpg" />
+    <None Remove="Resources\Images\Rectangle.jpg" />
+    <None Remove="Resources\Images\Trapezoid.jpg" />
+    <None Remove="Resources\Images\Triangle.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\Ellipse.jpg" />
+    <Resource Include="Resources\Images\Rectangle.jpg" />
+    <Resource Include="Resources\Images\Trapezoid.jpg" />
+    <Resource Include="Resources\Images\Triangle.jpg" />
   </ItemGroup>
 
 </Project>
