@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    public class FigureValidator
+    public class FigureValidator //TODO: Simplify return. Create ValidationRules.
     {
         public bool IsEmpty(params double?[] args)
         {
@@ -20,6 +20,7 @@ namespace Task1
 
         public bool IsOutOfRange(params double?[] args)
         {
+
             return args.Any(p => p is < ValidationData.MINVALUE or > ValidationData.MAXVALUE);
         }
         public bool IsPolygonExist(double? side1, double? side2, double? side3, double? side4 = 0)

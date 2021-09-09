@@ -1,71 +1,64 @@
-﻿namespace Task1
-{
-    public class FigureBuilder
-    {
-        private AreaCalculator _areaCalculator = new AreaCalculator();
-        private PerimeterCalculator _perimeterCalculator = new PerimeterCalculator();
+﻿using System;
 
-        public FigureBase figureBase;
+namespace Task1
+{
+    public class FigureBuilder //TODO: Add Validation
+    {
+        public ICalculator figureBase;
+
+        public FigureValidator validator = new FigureValidator();
 
         public FigureBuilder(EllipseViewModel ellipseViewModel)
         {
-            Ellipse ellipse = new Ellipse
+            if (!validator.IsEmpty(ellipseViewModel.MajorRadiusA, ellipseViewModel.MinorRadiusB)
+                && !validator.IsOutOfRange(ellipseViewModel.MajorRadiusA, ellipseViewModel.MinorRadiusB))
             {
-                MajorRadiusA = ellipseViewModel.MajorRadiusA,
-                MinorRadiusB = ellipseViewModel.MinorRadiusB,
-            };
+                Ellipse ellipse = new Ellipse
+                {
+                    A = ellipseViewModel.MajorRadiusA,
+                    B = ellipseViewModel.MinorRadiusB,
+                };
 
-            ellipse.Area = _areaCalculator.GetEllipseArea(ellipse);
-            ellipse.Perimeter = _perimeterCalculator.GetEllipsePerimeter(ellipse);
-
-            figureBase = (FigureBase)ellipse;
+                figureBase = (ICalculator)ellipse;
+            }
         }
 
         public FigureBuilder(RectangleViewModel rectangleViewModel)
         {
             Rectangle rectangle = new Rectangle
             {
-                LengthL = rectangleViewModel.LengthL,
-                WidthW = rectangleViewModel.WidthW,
+                L = rectangleViewModel.LengthL,
+                W = rectangleViewModel.WidthW,
             };
 
-            rectangle.Area = _areaCalculator.GetRectangleArea(rectangle);
-            rectangle.Perimeter = _perimeterCalculator.GetRectanglePerimeter(rectangle);
-
-            figureBase = (FigureBase)rectangle;
+            figureBase = (ICalculator)rectangle;
         }
 
         public FigureBuilder(TrapezoidViewModel trapezoidViewModel)
         {
             Trapezoid trapezoid = new Trapezoid
             {
-                BaseA = trapezoidViewModel.BaseA,
-                BaseB = trapezoidViewModel.BaseB,
-                SideC = trapezoidViewModel.SideC,
-                SideD = trapezoidViewModel.SideD,
-                HeightToB = trapezoidViewModel.HeightToB 
+                A = trapezoidViewModel.BaseA,
+                B = trapezoidViewModel.BaseB,
+                C = trapezoidViewModel.SideC,
+                D = trapezoidViewModel.SideD,
+                H = trapezoidViewModel.HeightToB 
             };
 
-            trapezoid.Area = _areaCalculator.GetTrapezoidArea(trapezoid);
-            trapezoid.Perimeter = _perimeterCalculator.GetTrapezoidPerimeter(trapezoid);
-
-            figureBase = (FigureBase)trapezoid;
+            figureBase = (ICalculator)trapezoid;
         }
 
         public FigureBuilder(TriangleViewModel triangleViewModel)
         {
             Triangle triangle = new Triangle
             {
-                SideA = triangleViewModel.SideA,
-                BaseB = triangleViewModel.BaseB,
-                SideC = triangleViewModel.SideC,
-                HeightToB = triangleViewModel.HeightToB
+                A = triangleViewModel.SideA,
+                B = triangleViewModel.BaseB,
+                C = triangleViewModel.SideC,
+                H = triangleViewModel.HeightToB
             };
 
-            triangle.Area = _areaCalculator.GetTriangleArea(triangle);
-            triangle.Perimeter = _perimeterCalculator.GetTrianglePerimeter(triangle);
-
-            figureBase = (FigureBase)triangle;
+            figureBase = (ICalculator)triangle;
         }
     }
 }

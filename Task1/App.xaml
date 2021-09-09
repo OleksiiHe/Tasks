@@ -5,10 +5,6 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <!--<ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Task1;component/Resources/Images.xaml"/>
-            </ResourceDictionary.MergedDictionaries>-->
-
             <DataTemplate x:Key="EllipseTemplate">
                 <local:EllipseView/>
             </DataTemplate>
@@ -61,8 +57,6 @@
             </Style>
 
             <Style x:Key="GeneralRequirement">
-                <!--<Style x:Key="GeneralRequirement" 
-                   TargetType="StackPanel">-->
                 <Setter Property="StackPanel.Visibility" 
                         Value="Collapsed"/>
                 <Setter Property="StackPanel.Orientation" 
@@ -165,7 +159,6 @@
                         Value="50"/>
                 <Setter Property="TextBox.Height" 
                         Value="20"/>
-                <!--<Setter Property="Button.IsEnabled" Value="True"/>-->
                 <Setter Property="Validation.ErrorTemplate" 
                         Value="{StaticResource validationTemplate}"/>
                 <Style.Triggers>
@@ -176,34 +169,9 @@
                                         Path=(Validation.Errors)[0].ErrorContent}"/>
                         <Setter Property="TextBox.Foreground" 
                                 Value="Red"/>
-                        <!--<Setter Property="Button.IsEnabled" Value="False"/>-->
                     </Trigger>
                 </Style.Triggers>
             </Style>
-
-            <!--<Style x:Key="ButtonDisabler"
-                   TargetType="Button">
-                <Setter Property="Visibility" 
-                        Value="Collapsed"/>
-                <Setter Property="HorizontalAlignment" 
-                        Value="Center"/>
-                <Style.Triggers>
-                    <DataTrigger Binding="{Binding FormulaType}" 
-                                 Value="Area">
-                        <Setter Property="Visibility" 
-                                Value="Visible"/>
-                    </DataTrigger>
-                    <DataTrigger Binding="{Binding FormulaType}" 
-                                 Value="Perimeter">
-                        <Setter Property="Visibility" 
-                                Value="Visible"/>
-                    </DataTrigger>
-                    <Trigger Property="Validation.HasError" Value="true">
-                        <Setter Property="IsEnabled" Value="False"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>-->
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>
