@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--<Image x:Key="EllipseImg"  Source="../../images/Ellipse.jpg" />
+    <Image x:Key="RectangleImg"  Source="../../images/Rectangle.jpg" />
+    <Image x:Key="TrapezoidImg"  Source="../../images/Trapezoid.jpg" />
+    <Image x:Key="TriangleImg"  Source="../../images/Triangle.jpg" />-->
+</ResourceDictionary>

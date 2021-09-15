@@ -1,11 +1,32 @@
 ﻿namespace Task1
 {
-    public class Trapezoid : FigureBase
+    public class Trapezoid : FigureBase, ICalculator  //TODO: Fix type to double
     {
-        public double BaseA { get; set; }
-        public double BaseB { get; set; }
-        public double SideC { get; set; }
-        public double SideD { get; set; }
-        public double HeightToB { get; set; }
+        /// <summary>
+        /// A is Base
+        /// B is Base
+        /// C is Side
+        /// D is Side
+        /// H is Height to B
+        /// </summary>
+        public double? A { get; set; }
+        public double? B { get; set; }
+        public double? C { get; set; }
+        public double? D { get; set; }
+        public double? H { get; set; }
+
+        public double? GetArea()
+        {
+            Area = (A + B) / 2 * H;
+
+            return Area;
+        }
+
+        public double? GetPerimeter()
+        {
+            Perimeter = A + B + C + D;
+
+            return Perimeter;
+        }
     }
 }

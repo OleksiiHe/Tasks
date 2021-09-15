@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Input;
 
 namespace Task1
 {
-    class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase //TODO: Move Styles from App to Dictionary
     {
         private EllipseViewModel _ellipseViewModel;
         public EllipseViewModel EllipseViewModel
@@ -63,7 +62,7 @@ namespace Task1
             }
         }
 
-        public IEnumerable<string> FigureTypes
+        public IEnumerable<string> FigureTypes //TODO: Remove Casting
         {
             get
             {
@@ -82,11 +81,13 @@ namespace Task1
             {
                 _figureType = value;
                 OnPropertyChanged();
-                Result = "";
+                Result = 0;
+                ResultMessage = "";
+                ErrorMessage = "";
             }
         }
 
-        public IEnumerable<string> FormulaTypes
+        public IEnumerable<string> FormulaTypes //TODO: Remove Casting
         {
             get
             {
@@ -105,7 +106,9 @@ namespace Task1
             {
                 _formulaType = value;
                 OnPropertyChanged();
-                Result = "";
+                Result = 0;
+                ResultMessage = "";
+                ErrorMessage = "";
             }
         }
 
@@ -123,8 +126,8 @@ namespace Task1
             }
         }
 
-        private string _result;
-        public string Result
+        private double? _result;
+        public double? Result
         {
             get
             {
@@ -133,11 +136,60 @@ namespace Task1
             set
             {
                 _result = value;
+                ResultMessage = $"Result: {Result}";
                 OnPropertyChanged();
             }
         }
 
-        public ICommand CalculateCommand { get; }
+        private string _resultMessage;
+        public string ResultMessage
+        {
+            get
+            {
+                return _resultMessage;
+            }
+            set
+            {
+                _resultMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private RelayCommand _calculateCommand;
+        public RelayCommand CalculateCommand
+        {
+            get
+            {
+                return _calculateCommand ??= new RelayCommand(obj =>
+                  {
+                      if (FormulaType == "Area")
+                      {
+                          Result = new FigureBuilder(GetFigureModel()).figureBase.GetArea();
+                      }
+                      if (FormulaType == "Perimeter")
+                      {
+                          Result = new FigureBuilder(GetFigureModel()).figureBase.GetPerimeter();
+                      }
+                  });
+            }
+        }
+
+        public dynamic GetFigureModel() //TODO: Add Default
+        {
+            switch(FigureType)
+            {
+                case "Ellipse":
+                    return EllipseViewModel;
+                case "Rectangle":
+                    return RectangleViewModel;
+                case "Trapezoid":
+                    return TrapezoidViewModel;
+                case "Triangle":
+                    return TriangleViewModel;
+            }
+
+            return null;
+        }
 
         public MainWindowViewModel()
         {
@@ -145,8 +197,6 @@ namespace Task1
             _rectangleViewModel = new RectangleViewModel();
             _trapezoidViewModel = new TrapezoidViewModel();
             _triangleViewModel = new TriangleViewModel();
-
-            CalculateCommand = new CalculateCommand(this);
         }
     }
 }

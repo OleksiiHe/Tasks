@@ -1,9 +1,11 @@
-﻿namespace Task1
+﻿using System.ComponentModel;
+
+namespace Task1
 {
-    public class EllipseViewModel : ViewModelBase
+    public class EllipseViewModel : ViewModelBase, IDataErrorInfo
     {
-        private double _majorRadiusA;
-        public double MajorRadiusA
+        private double? _majorRadiusA;
+        public double? MajorRadiusA
         {
             get
             {
@@ -16,46 +18,51 @@
             }
         }
 
-        private double _minorRadiusA;
-        public double MinorRadiusB
+        private double? _minorRadiusB;
+        public double? MinorRadiusB
         {
             get
             {
-                return _minorRadiusA;
+                return _minorRadiusB;
             }
             set
             {
-                _minorRadiusA = value;
+                _minorRadiusB = value;
                 OnPropertyChanged();
             }
         }
 
-        //private double _area;
-        //public double Area
-        //{
-        //    get
-        //    {
-        //        return _area;
-        //    }
-        //    set
-        //    {
-        //        _area = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
 
-        //private double _perimeter;
-        //public double Perimeter
-        //{
-        //    get
-        //    {
-        //        return _perimeter;
-        //    }
-        //    set
-        //    {
-        //        _perimeter = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        public string this[string name]
+        {
+            get
+            {
+                string result = null;
+                FigureValidator figureValidator = new();
+
+                if (name is nameof(MajorRadiusA) or nameof(MinorRadiusB))
+                {
+                    if (figureValidator.IsOutOfRange(_majorRadiusA, _minorRadiusB))
+                    {
+                        result = ValidationData.VALUEISOUTOFRANGE;
+                    }
+
+                    //Formal. Not necessary
+                    if (_majorRadiusA < _minorRadiusB)
+                    {
+                        result = ValidationData.INCORRECTRADIUS;
+                    }
+                }
+
+                return result;
+            }
+        }
     }
 }

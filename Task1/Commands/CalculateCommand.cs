@@ -3,69 +3,31 @@ using System.Windows.Input;
 
 namespace Task1
 {
-    class CalculateCommand : ICommand
+    public class RelayCommand : ICommand
     {
-        public double result;
-        private readonly MainWindowViewModel _mainWindowViewModel;
+        private readonly Action<object> _onExecute;
+        private readonly Func<object, bool> _canExecute;
 
-        public CalculateCommand(MainWindowViewModel mainWindowViewModel)
+        public event EventHandler CanExecuteChanged
         {
-            _mainWindowViewModel = mainWindowViewModel;
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public event EventHandler CanExecuteChanged;
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            _onExecute = execute;
+            _canExecute = canExecute;
+        }
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            try
-            {
-
-                switch((_mainWindowViewModel.FigureType, _mainWindowViewModel.FormulaType))
-                {
-                    case ("Ellipse", "Area"):
-                        result = new FigureBuilder(_mainWindowViewModel.EllipseViewModel).figureBase.Area;
-                        break;
-
-                    case ("Ellipse", "Perimeter"):
-                        result = new FigureBuilder(_mainWindowViewModel.EllipseViewModel).figureBase.Perimeter;
-                        break;
-
-                    case ("Rectangle", "Area"):
-                        result = new FigureBuilder(_mainWindowViewModel.RectangleViewModel).figureBase.Area;
-                        break;
-
-                    case ("Rectangle", "Perimeter"):
-                        result = new FigureBuilder(_mainWindowViewModel.RectangleViewModel).figureBase.Perimeter;
-                        break;
-
-                    case ("Trapezoid", "Area"):
-                        result = new FigureBuilder(_mainWindowViewModel.TrapezoidViewModel).figureBase.Area;
-                        break;
-
-                    case ("Trapezoid", "Perimeter"):
-                        result = new FigureBuilder(_mainWindowViewModel.TrapezoidViewModel).figureBase.Perimeter;
-                        break;
-
-                    case ("Triangle", "Area"):
-                        result = new FigureBuilder(_mainWindowViewModel.TriangleViewModel).figureBase.Area;
-                        break;
-
-                    case ("Triangle", "Perimeter"):
-                        result = new FigureBuilder(_mainWindowViewModel.TriangleViewModel).figureBase.Perimeter;
-                        break;
-                }
-
-                _mainWindowViewModel.Result = $"Result {result}";
-            }
-            catch (Exception)
-            {
-                _mainWindowViewModel.ErrorMessage = "Something wrong! Check all fields, please!";
-            }
+            _onExecute(parameter);
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace Task1
+﻿using System.ComponentModel;
+
+namespace Task1
 {
-    public class RectangleViewModel : ViewModelBase
+    public class RectangleViewModel : ViewModelBase, IDataErrorInfo
     {
-        private double _lengthL;
-        public double LengthL
+        private double? _lengthL;
+        public double? LengthL
         {
             get
             {
@@ -16,8 +18,8 @@
             }
         }
 
-        private double _widthW;
-        public double WidthW
+        private double? _widthW;
+        public double? WidthW
 
         {
             get
@@ -31,32 +33,37 @@
             }
         }
 
-        //private double _area;
-        //public double Area
-        //{
-        //    get
-        //    {
-        //        return _area;
-        //    }
-        //    set
-        //    {
-        //        _area = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        public string Error
+        {
+            get
+            {
+                return null;
+            }
+        }
 
-        //private double _perimeter;
-        //public double Perimeter
-        //{
-        //    get
-        //    {
-        //        return _perimeter;
-        //    }
-        //    set
-        //    {
-        //        _perimeter = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
+        public string this[string name]
+        {
+            get
+            {
+                string result = null;
+                FigureValidator figureValidator = new();
+
+                if (name is nameof(LengthL) or nameof(WidthW))
+                {
+                    if (figureValidator.IsOutOfRange(_lengthL, _widthW))
+                    {
+                        result = ValidationData.VALUEISOUTOFRANGE;
+                    }
+
+                    //Formal. Not necessary
+                    if (_lengthL < _widthW)
+                    {
+                        result = ValidationData.INCORRECTSIDE;
+                    }
+                }
+
+                return result;
+            }
+        }
     }
 }

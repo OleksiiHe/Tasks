@@ -21,37 +21,73 @@
         <StackPanel Grid.Row="1"
                     Style="{StaticResource PerimeterRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="a"/>
+                       Text="Side a"/>
             <TextBox Name="SideABox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TriangleViewModel.SideA}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TriangleViewModel.SideA"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="2"
                     Style="{StaticResource GeneralRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="b"/>
+                       Text="Base b"/>
             <TextBox Name="BaseBBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TriangleViewModel.BaseB}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TriangleViewModel.BaseB"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="3"
                     Style="{StaticResource PerimeterRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="c"/>
+                       Text="Side c"/>
             <TextBox Name="SideCBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TriangleViewModel.SideC}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TriangleViewModel.SideC"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel Grid.Row="4"
                     Style="{StaticResource AreaRequirement}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
-                       Text="h"/>
+                       Text="Height h"/>
             <TextBox Name="HeightToBBox"              
-                     Style="{StaticResource ParameterTextBox}"
-                     Text="{Binding TriangleViewModel.HeightToB}"/>
+                     Style="{StaticResource ParameterTextBox}">
+                <TextBox.Text>
+                    <Binding Path="TriangleViewModel.HeightToB"
+                             ValidatesOnExceptions="True"
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <DataErrorValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
     </Grid>
 </UserControl>
