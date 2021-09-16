@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Task1">
+    
+    <DataTemplate x:Key="EllipseTemplate">
+        <local:EllipseView/>
+    </DataTemplate>
+    <DataTemplate x:Key="RectangleTemplate">
+        <local:RectangleView/>
+    </DataTemplate>
+    <DataTemplate x:Key="TrapezoidTemplate">
+        <local:TrapezoidView/>
+    </DataTemplate>
+    <DataTemplate x:Key="TriangleTemplate">
+        <local:TriangleView/>
+    </DataTemplate>
+    <DataTemplate x:Key="Default">
+        <local:Default/>
+    </DataTemplate>
+
+    <Style x:Key="FigureContentStyle">
+        <Setter Property="ContentControl.ContentTemplate" 
+                Value="{StaticResource Default}"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding FigureType}" 
+                         Value="Ellipse">
+                <Setter Property="ContentControl.ContentTemplate" 
+                        Value="{StaticResource EllipseTemplate}"/>
+                <Setter Property="Image.Source" 
+                        Value="/Resources/Images/Ellipse.jpg"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding FigureType}" 
+                         Value="Rectangle">
+                <Setter Property="ContentControl.ContentTemplate" 
+                        Value="{StaticResource RectangleTemplate}"/>
+                <Setter Property="Image.Source" 
+                        Value="/Resources/Images/Rectangle.jpg"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding FigureType}" 
+                         Value="Trapezoid">
+                <Setter Property="ContentControl.ContentTemplate" 
+                        Value="{StaticResource TrapezoidTemplate}"/>
+                <Setter Property="Image.Source" 
+                        Value="/Resources/Images/Trapezoid.jpg"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding FigureType}" 
+                         Value="Triangle">
+                <Setter Property="ContentControl.ContentTemplate" 
+                        Value="{StaticResource TriangleTemplate}"/>
+                <Setter Property="Image.Source" 
+                        Value="/Resources/Images/Triangle.jpg"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

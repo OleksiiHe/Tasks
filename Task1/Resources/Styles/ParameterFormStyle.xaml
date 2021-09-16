@@ -1,0 +1,64 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <Style x:Key="GeneralRequirement">
+        <Setter Property="StackPanel.Visibility" 
+                        Value="Collapsed"/>
+        <Setter Property="StackPanel.Orientation" 
+                        Value="Horizontal"/>
+        <Setter Property="StackPanel.HorizontalAlignment" 
+                        Value="Right"/>
+        <Setter Property="StackPanel.Margin" 
+                        Value="0 0 50 0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding FormulaType}" 
+                                 Value="Area">
+                <Setter Property="StackPanel.Visibility" 
+                                Value="Visible"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding FormulaType}" 
+                                 Value="Perimeter">
+                <Setter Property="StackPanel.Visibility" 
+                                Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AreaRequirement" 
+                   TargetType="StackPanel">
+        <Setter Property="Visibility" 
+                        Value="Collapsed"/>
+        <Setter Property="Orientation" 
+                        Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" 
+                        Value="Right"/>
+        <Setter Property="StackPanel.Margin" 
+                        Value="0 0 50 0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding FormulaType}" 
+                                 Value="Area">
+                <Setter Property="Visibility" 
+                                Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="PerimeterRequirement" 
+                   TargetType="StackPanel">
+        <Setter Property="Visibility" 
+                        Value="Collapsed"/>
+        <Setter Property="Orientation" 
+                        Value="Horizontal"/>
+        <Setter Property="HorizontalAlignment" 
+                        Value="Right"/>
+        <Setter Property="StackPanel.Margin" 
+                        Value="0 0 50 0"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding FormulaType}" 
+                                 Value="Perimeter">
+                <Setter Property="Visibility" 
+                                Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
