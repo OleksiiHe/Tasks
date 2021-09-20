@@ -15,7 +15,6 @@
         <local:TriangleView/>
     </DataTemplate>
     <DataTemplate x:Key="Default">
-        <local:Default/>
     </DataTemplate>
 
     <Style x:Key="FigureContentStyle">
