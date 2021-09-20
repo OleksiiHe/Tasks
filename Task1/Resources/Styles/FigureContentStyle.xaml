@@ -23,28 +23,28 @@
                 Value="{StaticResource Default}"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding FigureType}" 
-                         Value="Ellipse">
+                         Value="{x:Static local:Figures.Ellipse}">
                 <Setter Property="ContentControl.ContentTemplate" 
                         Value="{StaticResource EllipseTemplate}"/>
                 <Setter Property="Image.Source" 
                         Value="/Resources/Images/Ellipse.jpg"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding FigureType}" 
-                         Value="Rectangle">
+                         Value="{x:Static local:Figures.Rectangle}">
                 <Setter Property="ContentControl.ContentTemplate" 
                         Value="{StaticResource RectangleTemplate}"/>
                 <Setter Property="Image.Source" 
                         Value="/Resources/Images/Rectangle.jpg"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding FigureType}" 
-                         Value="Trapezoid">
+                         Value="{x:Static local:Figures.Trapezoid}">
                 <Setter Property="ContentControl.ContentTemplate" 
                         Value="{StaticResource TrapezoidTemplate}"/>
                 <Setter Property="Image.Source" 
                         Value="/Resources/Images/Trapezoid.jpg"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding FigureType}" 
-                         Value="Triangle">
+                         Value="{x:Static local:Figures.Triangle}">
                 <Setter Property="ContentControl.ContentTemplate" 
                         Value="{StaticResource TriangleTemplate}"/>
                 <Setter Property="Image.Source" 

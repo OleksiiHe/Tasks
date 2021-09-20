@@ -62,16 +62,16 @@ namespace Task1
             }
         }
 
-        public IEnumerable<string> FigureTypes //TODO: Remove Casting
+        public IEnumerable<Figures> FigureTypes //TODO: Remove Casting
         {
             get
             {
-                return Enum.GetNames(typeof(Figures)).Cast<string>();
+                return (IEnumerable<Figures>)Enum.GetValues(typeof(Figures));
             }
         }
 
-        private string _figureType = "";
-        public string FigureType
+        private Figures _figureType = 0;
+        public Figures FigureType
         {
             get
             {
@@ -81,6 +81,7 @@ namespace Task1
             {
                 _figureType = value;
                 OnPropertyChanged();
+
                 Result = 0;
                 ResultMessage = "";
                 ErrorMessage = "";
@@ -178,13 +179,13 @@ namespace Task1
         {
             switch(FigureType)
             {
-                case "Ellipse":
+                case Figures.Ellipse:
                     return EllipseViewModel;
-                case "Rectangle":
+                case Figures.Rectangle:
                     return RectangleViewModel;
-                case "Trapezoid":
+                case Figures.Trapezoid:
                     return TrapezoidViewModel;
-                case "Triangle":
+                case Figures.Triangle:
                     return TriangleViewModel;
             }
 
