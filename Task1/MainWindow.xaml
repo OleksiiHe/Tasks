@@ -95,7 +95,7 @@
                     Width="100"
                     Margin="10 10 10 10"
                     Content="Calculate" 
-                    Style="{StaticResource GeneralRequirement}"
+                    Visibility="{Binding ButtonVisibility}"
                     Command="{Binding CalculateCommand}"                                               
                     IsDefault="True"/>
 

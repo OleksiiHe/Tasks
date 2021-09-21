@@ -3,19 +3,18 @@
                     xmlns:local="clr-namespace:Task1">
     
     <DataTemplate x:Key="EllipseTemplate">
-        <local:EllipseView/>
+        <local:EllipseView DataContext="{Binding FigureViewModel}"/>
     </DataTemplate>
     <DataTemplate x:Key="RectangleTemplate">
-        <local:RectangleView/>
+        <local:RectangleView DataContext="{Binding FigureViewModel}"/>
     </DataTemplate>
     <DataTemplate x:Key="TrapezoidTemplate">
-        <local:TrapezoidView/>
+        <local:TrapezoidView DataContext="{Binding FigureViewModel}"/>
     </DataTemplate>
     <DataTemplate x:Key="TriangleTemplate">
-        <local:TriangleView/>
+        <local:TriangleView DataContext="{Binding FigureViewModel}"/>
     </DataTemplate>
     <DataTemplate x:Key="Default">
-        <local:Default/>
     </DataTemplate>
 
     <Style x:Key="FigureContentStyle">

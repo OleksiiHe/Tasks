@@ -4,65 +4,26 @@ using System.Linq;
 
 namespace Task1
 {
-    public class MainWindowViewModel : ViewModelBase //TODO: Move Styles from App to Dictionary
+    public class MainWindowViewModel : ViewModelBase
     {
-        private EllipseViewModel _ellipseViewModel;
-        public EllipseViewModel EllipseViewModel
+        private const string _ASSAMBLYNAME = "Task1";
+        private string _viewModelPath;
+
+        private object _figureViewModel;
+        public object FigureViewModel
         {
             get
             {
-                return _ellipseViewModel;
+                return _figureViewModel;
             }
             set
             {
-                _ellipseViewModel = value;
+                _figureViewModel = value;
                 OnPropertyChanged();
             }
         }
 
-        private RectangleViewModel _rectangleViewModel;
-        public RectangleViewModel RectangleViewModel
-        {
-            get
-            {
-                return _rectangleViewModel;
-            }
-            set
-            {
-                _rectangleViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private TrapezoidViewModel _trapezoidViewModel;
-        public TrapezoidViewModel TrapezoidViewModel
-        {
-            get
-            {
-                return _trapezoidViewModel;
-            }
-            set
-            {
-                _trapezoidViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private TriangleViewModel _triangleViewModel;
-        public TriangleViewModel TriangleViewModel
-        {
-            get
-            {
-                return _triangleViewModel;
-            }
-            set
-            {
-                _triangleViewModel = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public IEnumerable<Figures> FigureTypes //TODO: Remove Casting
+        public IEnumerable<Figures> FigureTypes
         {
             get
             {
@@ -81,6 +42,7 @@ namespace Task1
             {
                 _figureType = value;
                 OnPropertyChanged();
+                SetFigure();
 
                 Result = 0;
                 ResultMessage = "";
@@ -88,7 +50,7 @@ namespace Task1
             }
         }
 
-        public IEnumerable<string> FormulaTypes //TODO: Remove Casting
+        public IEnumerable<string> FormulaTypes //TODO: Extract to two different buttons
         {
             get
             {
@@ -123,6 +85,20 @@ namespace Task1
             set
             {
                 _errorMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _buttonVisibility = "Collapsed";
+        public string ButtonVisibility
+        {
+            get
+            {
+                return _buttonVisibility;
+            }
+            set
+            {
+                _buttonVisibility = value;
                 OnPropertyChanged();
             }
         }
@@ -175,29 +151,36 @@ namespace Task1
             }
         }
 
-        public dynamic GetFigureModel() //TODO: Add Default
+        public dynamic GetFigureModel()
         {
             switch(FigureType)
             {
                 case Figures.Ellipse:
-                    return EllipseViewModel;
+                    return FigureViewModel as EllipseViewModel;
                 case Figures.Rectangle:
-                    return RectangleViewModel;
+                    return FigureViewModel as RectangleViewModel;
                 case Figures.Trapezoid:
-                    return TrapezoidViewModel;
+                    return FigureViewModel as TrapezoidViewModel;
                 case Figures.Triangle:
-                    return TriangleViewModel;
+                    return FigureViewModel as TriangleViewModel;
+                default:
+                    return null;
             }
-
-            return null;
         }
 
         public MainWindowViewModel()
         {
-            _ellipseViewModel = new EllipseViewModel();
-            _rectangleViewModel = new RectangleViewModel();
-            _trapezoidViewModel = new TrapezoidViewModel();
-            _triangleViewModel = new TriangleViewModel();
+        }
+
+        private void SetFigure()
+        {
+            if (FigureType > 0)
+            {
+                _viewModelPath = $"{_ASSAMBLYNAME}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
+                FigureViewModel = Activator.CreateInstance(_ASSAMBLYNAME, _viewModelPath).Unwrap();
+
+                ButtonVisibility = "Visible";
+            }
         }
     }
 }
