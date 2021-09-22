@@ -9,6 +9,9 @@ namespace Task1
         private const string _ASSAMBLYNAME = "Task1";
         private string _viewModelPath;
 
+        private string _formulaType;
+        private double? _result;
+
         private object _figureViewModel;
         public object FigureViewModel
         {
@@ -31,7 +34,7 @@ namespace Task1
             }
         }
 
-        private Figures _figureType = 0;
+        private Figures _figureType;
         public Figures FigureType
         {
             get
@@ -44,36 +47,25 @@ namespace Task1
                 OnPropertyChanged();
                 SetFigure();
 
-                Result = 0;
-                ResultMessage = "";
+                _result = 0;
+                AreaMessage = "";
+                PerimeterMessage = "";
                 ErrorMessage = "";
             }
         }
 
-        public IEnumerable<string> FormulaTypes //TODO: Extract to two different buttons
-        {
-            get
-            {
-                return Enum.GetNames(typeof(Formulas)).Cast<string>();
-            }
-        }
-
-        private string _formulaType = "";
-        public string FormulaType
-        {
-            get
-            {
-                return _formulaType;
-            }
-            set
-            {
-                _formulaType = value;
-                OnPropertyChanged();
-                Result = 0;
-                ResultMessage = "";
-                ErrorMessage = "";
-            }
-        }
+        //public string FormulaType
+        //{
+        //    get
+        //    {
+        //        return _formulaType;
+        //    }
+        //    set
+        //    {
+        //        _formulaType = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         private string _errorMessage = "";
         public string ErrorMessage
@@ -103,51 +95,72 @@ namespace Task1
             }
         }
 
-        private double? _result;
-        public double? Result
+        //public double? Result
+        //{
+        //    get
+        //    {
+        //        return _result;
+        //    }
+        //    set
+        //    {
+        //        _result = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
+        private string _areaMessage;
+        public string AreaMessage
         {
             get
             {
-                return _result;
+                return _areaMessage;
             }
             set
             {
-                _result = value;
-                ResultMessage = $"Result: {Result}";
+                _areaMessage = value;
                 OnPropertyChanged();
             }
         }
 
-        private string _resultMessage;
-        public string ResultMessage
+        private string _perimeterMessage;
+        public string PerimeterMessage
         {
             get
             {
-                return _resultMessage;
+                return _perimeterMessage;
             }
             set
             {
-                _resultMessage = value;
+                _perimeterMessage = value;
                 OnPropertyChanged();
             }
         }
 
-        private RelayCommand _calculateCommand;
-        public RelayCommand CalculateCommand
+        private RelayCommand _getAreaCommand;
+        public RelayCommand GetAreaCommand
         {
             get
             {
-                return _calculateCommand ??= new RelayCommand(obj =>
+                return _getAreaCommand ??= new RelayCommand(obj =>
                   {
-                      if (FormulaType == "Area")
-                      {
-                          Result = new FigureBuilder(GetFigureModel()).figureBase.GetArea();
-                      }
-                      if (FormulaType == "Perimeter")
-                      {
-                          Result = new FigureBuilder(GetFigureModel()).figureBase.GetPerimeter();
-                      }
+                      _formulaType = Enum.GetName(typeof(Formulas), Formulas.Area);
+                      _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetArea(), 5);
+                      AreaMessage = $"{_formulaType}: {_result}";
                   });
+            }
+        }
+
+        private RelayCommand _getPerimeterCommand;
+        public RelayCommand GetPerimeterCommand
+        {
+            get
+            {
+                return _getPerimeterCommand ??= new RelayCommand(obj =>
+                {
+                    _formulaType = Enum.GetName(typeof(Formulas), Formulas.Perimeter);
+                    _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetPerimeter(), 5);
+                    PerimeterMessage = $"{_formulaType}: {_result}";
+                });
             }
         }
 

@@ -5,7 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Task1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="600">
+        Title="MainWindow"
+        MinHeight="500"
+        MinWidth="600"
+        Width="600">
 
     <Window.DataContext>
         <local:MainWindowViewModel/>
@@ -25,7 +28,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0"
-                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     Orientation="Vertical"
                     Margin="0 10 0 0">
             <TextBox Text="Figure" 
@@ -43,71 +46,57 @@
                       SelectedItem="{Binding FigureType}"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="0 10 0 10"
-                    Orientation="Vertical">
-            <TextBox Text="Calculate" 
-                     BorderThickness="0"
-                     VerticalAlignment="Top"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
-                     FontWeight="Bold"
-                     Width="Auto"/>
-            <ComboBox Width="100"
-                      Height="20"
-                      Margin="0 10 0 0"
-                      IsEditable="true"
-                      ItemsSource="{Binding FormulaTypes}"
-                      SelectedItem="{Binding FormulaType}"/>
-        </StackPanel>
-
         <TextBlock  Grid.Row="1"
                     Grid.ColumnSpan="2"
-                    HorizontalAlignment="Center"
                     VerticalAlignment="Top"
-                    Width="Auto"
-                    Height="Auto"
-                    FontSize="20"
-                    FontWeight="Bold"
                     Foreground="Red"
+                    Style="{StaticResource ResultTextBlock}"
                     Text="{Binding ErrorMessage}"/>
 
         <Image  Grid.Row="2"
-                Grid.Column="0"
+                Grid.Column="1"
                 HorizontalAlignment="Stretch"
+                Width="300"
+                Height="200"
                 Margin="0 30 0 0"
                 Style="{StaticResource FigureContentStyle}"/>
 
-
         <ContentControl Grid.Row="2"
-                        Grid.Column="1"
+                        Grid.Column="0"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Height="Auto"
                         Content="{Binding}"
                         Style="{StaticResource FigureContentStyle}"/>
 
-        <Button x:Name="CalculateButton"
+        <Button x:Name="GetAreaButton"
                     Grid.Row="3"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Center"
-                    Width="100"
-                    Margin="10 10 10 10"
-                    Content="Calculate" 
+                    Grid.Column="0"
+                    Content="Get Area"
+                    Style="{StaticResource GetResultButton}"
                     Visibility="{Binding ButtonVisibility}"
-                    Command="{Binding CalculateCommand}"                                               
+                    Command="{Binding GetAreaCommand}"                                               
                     IsDefault="True"/>
 
-        <TextBlock  Name="ResultBlock"
+        <Button x:Name="GetPerimeterButton"
                     Grid.Row="4"
-                    Grid.ColumnSpan="2"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Bottom"
-                    Width="Auto"
-                    Height="Auto"
-                    FontSize="20"
-                    FontWeight="Bold"
-                    Text="{Binding ResultMessage}"/>
+                    Grid.Column="0"
+                    Content="Get Perimeter"
+                    Style="{StaticResource GetResultButton}"
+                    Visibility="{Binding ButtonVisibility}"
+                    Command="{Binding GetPerimeterCommand}"                                               
+                    IsDefault="True"/>
+
+        <TextBlock  Name="AreaResultBlock"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Style="{StaticResource ResultTextBlock}"
+                    Text="{Binding AreaMessage}"/>
+
+        <TextBlock  Name="PerimeterResultBlock"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Style="{StaticResource ResultTextBlock}"
+                    Text="{Binding PerimeterMessage}"/>
     </Grid>
 </Window>
