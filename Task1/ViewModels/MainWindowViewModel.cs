@@ -54,19 +54,6 @@ namespace Task1
             }
         }
 
-        //public string FormulaType
-        //{
-        //    get
-        //    {
-        //        return _formulaType;
-        //    }
-        //    set
-        //    {
-        //        _formulaType = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
-
         private string _errorMessage = "";
         public string ErrorMessage
         {
@@ -94,19 +81,6 @@ namespace Task1
                 OnPropertyChanged();
             }
         }
-
-        //public double? Result
-        //{
-        //    get
-        //    {
-        //        return _result;
-        //    }
-        //    set
-        //    {
-        //        _result = value;
-        //        OnPropertyChanged();
-        //    }
-        //}
 
         private string _areaMessage;
         public string AreaMessage
