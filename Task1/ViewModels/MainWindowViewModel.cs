@@ -45,11 +45,8 @@ namespace Task1
             {
                 _figureType = value;
                 OnPropertyChanged();
-                SetFigure();
 
-                AreaMessage = "";
-                PerimeterMessage = "";
-                ErrorMessage = "";
+                SetFigure();
             }
         }
 
@@ -161,6 +158,10 @@ namespace Task1
                 FigureViewModel = Activator.CreateInstance(_ASSAMBLYNAME, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
+
+                AreaMessage = "";
+                PerimeterMessage = "";
+                ErrorMessage = "";
             }
         }
 
