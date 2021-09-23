@@ -6,11 +6,11 @@ namespace Task1
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public FigureValidator validator = new FigureValidator();
+
         private const string _ASSAMBLYNAME = "Task1";
         private string _viewModelPath;
-
         private string _formulaType;
-        private double? _result;
 
         private object _figureViewModel;
         public object FigureViewModel
@@ -47,7 +47,6 @@ namespace Task1
                 OnPropertyChanged();
                 SetFigure();
 
-                _result = 0;
                 AreaMessage = "";
                 PerimeterMessage = "";
                 ErrorMessage = "";
@@ -117,9 +116,17 @@ namespace Task1
             {
                 return _getAreaCommand ??= new RelayCommand(obj =>
                   {
-                      _formulaType = Enum.GetName(typeof(Formulas), Formulas.Area);
-                      _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetArea(), 5);
-                      AreaMessage = $"{_formulaType}: {_result}";
+                      try
+                      {
+                          _formulaType = Enum.GetName(typeof(Formulas), Formulas.Area);
+                          var result = (FigureViewModel as IBuilder).GetFigure(validator).GetArea();
+                          AreaMessage = $"{_formulaType}: {RoundResult(result)}";
+                      }
+
+                      catch (Exception e)
+                      {
+                          ErrorMessage = e.Message;
+                      }
                   });
             }
         }
@@ -131,32 +138,19 @@ namespace Task1
             {
                 return _getPerimeterCommand ??= new RelayCommand(obj =>
                 {
-                    _formulaType = Enum.GetName(typeof(Formulas), Formulas.Perimeter);
-                    _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetPerimeter(), 5);
-                    PerimeterMessage = $"{_formulaType}: {_result}";
+                    try
+                    {
+                        _formulaType = Enum.GetName(typeof(Formulas), Formulas.Perimeter);
+                        var result = (FigureViewModel as IBuilder).GetFigure(validator).GetPerimeter();
+                        PerimeterMessage = $"{_formulaType}: {RoundResult(result)}";
+                    }
+
+                    catch (Exception e)
+                    {
+                        ErrorMessage = e.Message;
+                    }
                 });
             }
-        }
-
-        public dynamic GetFigureModel()
-        {
-            switch(FigureType)
-            {
-                case Figures.Ellipse:
-                    return FigureViewModel as EllipseViewModel;
-                case Figures.Rectangle:
-                    return FigureViewModel as RectangleViewModel;
-                case Figures.Trapezoid:
-                    return FigureViewModel as TrapezoidViewModel;
-                case Figures.Triangle:
-                    return FigureViewModel as TriangleViewModel;
-                default:
-                    return null;
-            }
-        }
-
-        public MainWindowViewModel()
-        {
         }
 
         private void SetFigure()
@@ -168,6 +162,11 @@ namespace Task1
 
                 ButtonVisibility = "Visible";
             }
+        }
+
+        private double RoundResult(double result)
+        {
+            return Math.Round((double)result, 5);
         }
     }
 }

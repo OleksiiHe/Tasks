@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace Task1
 {
-    public class EllipseViewModel : ViewModelBase, IDataErrorInfo
+    public class EllipseViewModel : ViewModelBase, IDataErrorInfo, IBuilder
     {
-        private double? _majorRadiusA;
-        public double? MajorRadiusA
+        private double _majorRadiusA;
+        public double MajorRadiusA
         {
             get
             {
@@ -18,8 +19,8 @@ namespace Task1
             }
         }
 
-        private double? _minorRadiusB;
-        public double? MinorRadiusB
+        private double _minorRadiusB;
+        public double MinorRadiusB
         {
             get
             {
@@ -29,6 +30,25 @@ namespace Task1
             {
                 _minorRadiusB = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public ICalculator GetFigure(FigureValidator validator)
+        {
+            if (validator.IsParamsValid(MajorRadiusA, MinorRadiusB))
+            {
+                Ellipse ellipse = new()
+                {
+                    A = MajorRadiusA,
+                    B = MinorRadiusB,
+                };
+
+                return ellipse;
+            }
+
+            else
+            {
+                throw new NullReferenceException(message: ValidationData.GENERAL_WARNING);
             }
         }
 
@@ -51,13 +71,13 @@ namespace Task1
                 {
                     if (figureValidator.IsOutOfRange(_majorRadiusA, _minorRadiusB))
                     {
-                        result = ValidationData.VALUEISOUTOFRANGE;
+                        result = ValidationData.VALUE_IS_OUT_OF_RANGE;
                     }
 
                     //Formal. Not necessary
                     if (_majorRadiusA < _minorRadiusB)
                     {
-                        result = ValidationData.INCORRECTRADIUS;
+                        result = ValidationData.INCORRECT_RADIUS;
                     }
                 }
 

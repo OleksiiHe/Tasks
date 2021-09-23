@@ -75,8 +75,7 @@
                     Content="Get Area"
                     Style="{StaticResource GetResultButton}"
                     Visibility="{Binding ButtonVisibility}"
-                    Command="{Binding GetAreaCommand}"                                               
-                    IsDefault="True"/>
+                    Command="{Binding GetAreaCommand}"/>
 
         <Button x:Name="GetPerimeterButton"
                     Grid.Row="4"
@@ -84,8 +83,7 @@
                     Content="Get Perimeter"
                     Style="{StaticResource GetResultButton}"
                     Visibility="{Binding ButtonVisibility}"
-                    Command="{Binding GetPerimeterCommand}"                                               
-                    IsDefault="True"/>
+                    Command="{Binding GetPerimeterCommand}"/>
 
         <TextBlock  Name="AreaResultBlock"
                     Grid.Row="3"
