@@ -6,11 +6,23 @@ namespace Task1
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public FigureValidator validator = new FigureValidator();
-
-        private const string _ASSAMBLYNAME = "Task1";
+        private const string _ASSAMBLY_NAME = "Task1";
         private string _viewModelPath;
         private string _formulaType;
+
+        private IFigureValidator _validator;
+        public IFigureValidator Validator
+        {
+            get
+            {
+                return GetFigureValidator();
+            }
+            set
+            {
+                _validator = value;
+                OnPropertyChanged();
+            }
+        }
 
         private object _figureViewModel;
         public object FigureViewModel
@@ -50,7 +62,7 @@ namespace Task1
             }
         }
 
-        private string _errorMessage = "";
+        private string _errorMessage;
         public string ErrorMessage
         {
             get
@@ -116,13 +128,13 @@ namespace Task1
                       try
                       {
                           _formulaType = Enum.GetName(typeof(Formulas), Formulas.Area);
-                          var result = (FigureViewModel as IBuilder).GetFigure(validator).GetArea();
+                          var result = (FigureViewModel as IBuilder).GetFigure().GetArea();
                           AreaMessage = $"{_formulaType}: {RoundResult(result)}";
                       }
 
                       catch (Exception e)
                       {
-                          ErrorMessage = e.Message;
+                          GeneralWarning = e.Message;
                       }
                   });
             }
@@ -138,13 +150,13 @@ namespace Task1
                     try
                     {
                         _formulaType = Enum.GetName(typeof(Formulas), Formulas.Perimeter);
-                        var result = (FigureViewModel as IBuilder).GetFigure(validator).GetPerimeter();
+                        var result = (FigureViewModel as IBuilder).GetFigure().GetPerimeter();
                         PerimeterMessage = $"{_formulaType}: {RoundResult(result)}";
                     }
 
                     catch (Exception e)
                     {
-                        ErrorMessage = e.Message;
+                        GeneralWarning = e.Message;
                     }
                 });
             }
@@ -154,14 +166,13 @@ namespace Task1
         {
             if (FigureType > 0)
             {
-                _viewModelPath = $"{_ASSAMBLYNAME}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
-                FigureViewModel = Activator.CreateInstance(_ASSAMBLYNAME, _viewModelPath).Unwrap();
+                _viewModelPath = $"{_ASSAMBLY_NAME}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
+                FigureViewModel = Activator.CreateInstance(_ASSAMBLY_NAME, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
 
                 AreaMessage = "";
                 PerimeterMessage = "";
-                ErrorMessage = "";
             }
         }
 

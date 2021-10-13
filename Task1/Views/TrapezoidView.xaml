@@ -30,6 +30,7 @@
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
+                            <local:DoubleRangeRule/>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
@@ -48,6 +49,7 @@
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
+                            <local:DoubleRangeRule/>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
@@ -66,6 +68,7 @@
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
+                            <local:DoubleRangeRule/>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
@@ -84,6 +87,7 @@
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
+                            <local:DoubleRangeRule/>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>
@@ -102,6 +106,7 @@
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
+                            <local:DoubleRangeRule/>
                             <DataErrorValidationRule/>
                         </Binding.ValidationRules>
                     </Binding>

@@ -51,7 +51,7 @@
                     VerticalAlignment="Top"
                     Foreground="Red"
                     Style="{StaticResource ResultTextBlock}"
-                    Text="{Binding ErrorMessage}"/>
+                    Text="{Binding FigureViewModel.GeneralWarning}"/>
 
         <Image  Grid.Row="2"
                 Grid.Column="1"
@@ -74,16 +74,18 @@
                     Grid.Column="0"
                     Content="Get Area"
                     Style="{StaticResource GetResultButton}"
+                    Command="{Binding GetAreaCommand}"
                     Visibility="{Binding ButtonVisibility}"
-                    Command="{Binding GetAreaCommand}"/>
+                    IsEnabled="{Binding FigureViewModel.CanGetArea}"/>
 
         <Button x:Name="GetPerimeterButton"
                     Grid.Row="4"
                     Grid.Column="0"
                     Content="Get Perimeter"
                     Style="{StaticResource GetResultButton}"
+                    Command="{Binding GetPerimeterCommand}"
                     Visibility="{Binding ButtonVisibility}"
-                    Command="{Binding GetPerimeterCommand}"/>
+                    IsEnabled="{Binding FigureViewModel.CanGetPerimeter}"/>
 
         <TextBlock  Name="AreaResultBlock"
                     Grid.Row="3"
