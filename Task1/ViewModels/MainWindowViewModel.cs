@@ -6,9 +6,8 @@ namespace Task1
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private const string _ASSAMBLYNAME = "Task1";
         private string _viewModelPath;
-
+        
         private string _formulaType;
         private double? _result;
 
@@ -81,60 +80,20 @@ namespace Task1
                 OnPropertyChanged();
             }
         }
-
-        private string _areaMessage;
         public string AreaMessage
         {
             get
             {
-                return _areaMessage;
-            }
-            set
-            {
-                _areaMessage = value;
-                OnPropertyChanged();
+                _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetArea(), 5);
+                return $"Area: {_result}";
             }
         }
-
-        private string _perimeterMessage;
         public string PerimeterMessage
         {
             get
             {
-                return _perimeterMessage;
-            }
-            set
-            {
-                _perimeterMessage = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private RelayCommand _getAreaCommand;
-        public RelayCommand GetAreaCommand
-        {
-            get
-            {
-                return _getAreaCommand ??= new RelayCommand(obj =>
-                  {
-                      _formulaType = Enum.GetName(typeof(Formulas), Formulas.Area);
-                      _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetArea(), 5);
-                      AreaMessage = $"{_formulaType}: {_result}";
-                  });
-            }
-        }
-
-        private RelayCommand _getPerimeterCommand;
-        public RelayCommand GetPerimeterCommand
-        {
-            get
-            {
-                return _getPerimeterCommand ??= new RelayCommand(obj =>
-                {
-                    _formulaType = Enum.GetName(typeof(Formulas), Formulas.Perimeter);
-                    _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetPerimeter(), 5);
-                    PerimeterMessage = $"{_formulaType}: {_result}";
-                });
+                 _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetPerimeter(), 5);
+                return $"Perimeter: {_result}";
             }
         }
 
@@ -163,8 +122,9 @@ namespace Task1
         {
             if (FigureType > 0)
             {
-                _viewModelPath = $"{_ASSAMBLYNAME}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
-                FigureViewModel = Activator.CreateInstance(_ASSAMBLYNAME, _viewModelPath).Unwrap();
+                var name = typeof(MainWindowViewModel).Assembly.GetName().Name;
+                _viewModelPath = $"{name}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
+                FigureViewModel = Activator.CreateInstance(name, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
             }
