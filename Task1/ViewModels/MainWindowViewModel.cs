@@ -8,8 +8,8 @@ namespace Task1
     {
         public FigureValidator validator = new FigureValidator();
 
-        private const string _ASSAMBLYNAME = "Task1";
         private string _viewModelPath;
+        
         private string _formulaType;
 
         private object _figureViewModel;
@@ -77,90 +77,32 @@ namespace Task1
                 OnPropertyChanged();
             }
         }
-
-        private string _areaMessage;
         public string AreaMessage
         {
             get
             {
-                return _areaMessage;
-            }
-            set
-            {
-                _areaMessage = value;
-                OnPropertyChanged();
+                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure(validator).GetArea());
+                return $"Area: {_result}";
             }
         }
-
-        private string _perimeterMessage;
         public string PerimeterMessage
         {
             get
             {
-                return _perimeterMessage;
-            }
-            set
-            {
-                _perimeterMessage = value;
-                OnPropertyChanged();
+                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure(validator).GetPerimeter());
+                return $"Perimeter: {_result}";
             }
         }
-
-        private RelayCommand _getAreaCommand;
-        public RelayCommand GetAreaCommand
-        {
-            get
-            {
-                return _getAreaCommand ??= new RelayCommand(obj =>
-                  {
-                      try
-                      {
-                          _formulaType = Enum.GetName(typeof(Formulas), Formulas.Area);
-                          var result = (FigureViewModel as IBuilder).GetFigure(validator).GetArea();
-                          AreaMessage = $"{_formulaType}: {RoundResult(result)}";
-                      }
-
-                      catch (Exception e)
-                      {
-                          ErrorMessage = e.Message;
-                      }
-                  });
-            }
-        }
-
-        private RelayCommand _getPerimeterCommand;
-        public RelayCommand GetPerimeterCommand
-        {
-            get
-            {
-                return _getPerimeterCommand ??= new RelayCommand(obj =>
-                {
-                    try
-                    {
-                        _formulaType = Enum.GetName(typeof(Formulas), Formulas.Perimeter);
-                        var result = (FigureViewModel as IBuilder).GetFigure(validator).GetPerimeter();
-                        PerimeterMessage = $"{_formulaType}: {RoundResult(result)}";
-                    }
-
-                    catch (Exception e)
-                    {
-                        ErrorMessage = e.Message;
-                    }
-                });
-            }
-        }
-
         private void SetFigure()
         {
             if (FigureType > 0)
             {
-                _viewModelPath = $"{_ASSAMBLYNAME}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
-                FigureViewModel = Activator.CreateInstance(_ASSAMBLYNAME, _viewModelPath).Unwrap();
+                var name = typeof(MainWindowViewModel).Assembly.GetName().Name;
+                _viewModelPath = $"{name}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
+                FigureViewModel = Activator.CreateInstance(name, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
 
-                AreaMessage = "";
-                PerimeterMessage = "";
                 ErrorMessage = "";
             }
         }
