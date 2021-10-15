@@ -6,12 +6,12 @@ namespace Task1
 {
     public class FigureValidator : IFigureValidator
     {
-        private double _min = ValidationData.MIN_VALUE;
-        private double _max = ValidationData.MAX_VALUE;
+        private readonly double _min = ValidationData.MIN_VALUE;
+        private readonly double _max = ValidationData.MAX_VALUE;
 
-        private Dictionary<String, List<String>> _errors = new Dictionary<string, List<string>>();
+        private Dictionary<string, List<string>> _errors = new();
 
-        public Dictionary<String, List<String>> Errors
+        public Dictionary<string, List<string>> Errors
         {
             get
             {

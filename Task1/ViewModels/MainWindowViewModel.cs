@@ -1,27 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Task1
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private const string _ASSAMBLYNAME = "Task1";
         private string _viewModelPath;
-        
-        private string _formulaType;
 
-        private IFigureValidator _validator;
         public IFigureValidator Validator
         {
             get
             {
                 return GetFigureValidator();
-            }
-            set
-            {
-                _validator = value;
-                OnPropertyChanged();
             }
         }
 
@@ -39,7 +29,7 @@ namespace Task1
             }
         }
 
-        public IEnumerable<Figures> FigureTypes
+        public static IEnumerable<Figures> FigureTypes
         {
             get
             {
@@ -50,10 +40,7 @@ namespace Task1
         private Figures _figureType;
         public Figures FigureType
         {
-            get
-            {
-                return _figureType;
-            }
+            get => _figureType;
             set
             {
                 _figureType = value;
@@ -114,7 +101,6 @@ namespace Task1
                 var name = typeof(MainWindowViewModel).Assembly.GetName().Name;
                 _viewModelPath = $"{name}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
                 FigureViewModel = Activator.CreateInstance(name, _viewModelPath).Unwrap();
-                FigureViewModel = Activator.CreateInstance(_ASSAMBLYNAME, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
                 ErrorMessage = "";

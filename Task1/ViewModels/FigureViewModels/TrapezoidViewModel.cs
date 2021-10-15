@@ -77,7 +77,7 @@ namespace Task1
 
         public ICalculator GetFigure()
         {
-            Trapezoid trapezoid = new Trapezoid
+            Trapezoid trapezoid = new()
             {
                 A = BaseA,
                 B = BaseB,
@@ -109,7 +109,7 @@ namespace Task1
                 }
                 else
                 {
-                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
                 CheckParams(GetFigureValidator());
