@@ -6,10 +6,11 @@ namespace Task1
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        public FigureValidator validator = new FigureValidator();
+
         private string _viewModelPath;
         
         private string _formulaType;
-        private double? _result;
 
         private object _figureViewModel;
         public object FigureViewModel
@@ -44,12 +45,8 @@ namespace Task1
             {
                 _figureType = value;
                 OnPropertyChanged();
-                SetFigure();
 
-                _result = 0;
-                AreaMessage = "";
-                PerimeterMessage = "";
-                ErrorMessage = "";
+                SetFigure();
             }
         }
 
@@ -84,7 +81,7 @@ namespace Task1
         {
             get
             {
-                _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetArea(), 5);
+                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure(validator).GetArea());
                 return $"Area: {_result}";
             }
         }
@@ -92,32 +89,10 @@ namespace Task1
         {
             get
             {
-                 _result = Math.Round((double)new FigureBuilder(GetFigureModel()).figureBase.GetPerimeter(), 5);
+                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure(validator).GetPerimeter());
                 return $"Perimeter: {_result}";
             }
         }
-
-        public dynamic GetFigureModel()
-        {
-            switch(FigureType)
-            {
-                case Figures.Ellipse:
-                    return FigureViewModel as EllipseViewModel;
-                case Figures.Rectangle:
-                    return FigureViewModel as RectangleViewModel;
-                case Figures.Trapezoid:
-                    return FigureViewModel as TrapezoidViewModel;
-                case Figures.Triangle:
-                    return FigureViewModel as TriangleViewModel;
-                default:
-                    return null;
-            }
-        }
-
-        public MainWindowViewModel()
-        {
-        }
-
         private void SetFigure()
         {
             if (FigureType > 0)
@@ -127,7 +102,14 @@ namespace Task1
                 FigureViewModel = Activator.CreateInstance(name, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
+
+                ErrorMessage = "";
             }
+        }
+
+        private double RoundResult(double result)
+        {
+            return Math.Round((double)result, 5);
         }
     }
 }

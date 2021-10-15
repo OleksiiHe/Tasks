@@ -6,42 +6,30 @@ using System.Threading.Tasks;
 
 namespace Task1
 {
-    public class FigureValidator //TODO: Simplify return. Create ValidationRules.
+    public class FigureValidator //TODO: Create ValidationRules.
     {
-        public bool IsEmpty(params double?[] args)
+        public bool IsParamsValid (params double[] args)
         {
-            if (args.Length == 0)
-            {
-                return true;
-            }
-
-            return args.Any(p => string.IsNullOrEmpty(p.ToString()));
+            return !IsEmpty(args) && !IsOutOfRange(args);
         }
 
-        public bool IsOutOfRange(params double?[] args)
+        public bool IsEmpty(params double[] args)
+        {
+            return args.Any(p => string.IsNullOrEmpty(p.ToString()) || p <= 0);
+        }
+
+        public bool IsOutOfRange(params double[] args)
         {
 
-            return args.Any(p => p is < ValidationData.MINVALUE or > ValidationData.MAXVALUE);
+            return args.Any(p => p is < ValidationData.MIN_VALUE or > ValidationData.MAX_VALUE);
         }
-        public bool IsPolygonExist(double? side1, double? side2, double? side3, double? side4 = 0)
+
+        public bool IsPolygonExist(double side1, double side2, double side3, double side4 = 0)
         {
-            if (!IsEmpty(side1, side2, side3, side4))
-            {
-                if (side1 < (side2 + side3 + side4)
+            return side1 < (side2 + side3 + side4)
                     && side2 < (side1 + side3 + side4)
                     && side3 < (side1 + side2 + side4)
-                    && side4 < (side1 + side2 + side3))
-                {
-                    return true;
-                }
-
-                else
-                {
-                    return false;
-                }
-            }
-
-            return true;
+                    && side4 < (side1 + side2 + side3);
         }
     }
 }

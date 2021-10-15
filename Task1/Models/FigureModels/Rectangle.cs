@@ -1,22 +1,33 @@
 ﻿namespace Task1
 {
-    public class Rectangle : FigureBase, ICalculator  //TODO: Fix type to double
+    public class Rectangle : FigureBase, ICalculator
     {
         /// <summary>
         /// L is Length
+        /// </summary>
+        public double L { get; set; }
+
+        /// <summary>
         /// W is Width
         /// </summary>
-        public double? L { get; set; }
-        public double? W { get; set; }
+        public double W { get; set; }
 
-        public double? GetArea()
+        /// <summary>
+        /// Rectangle Area calculation by formula:
+        /// Area = Length * Width
+        /// </summary>
+        public double GetArea()
         {
             Area = W * L;
 
             return Area;
         }
 
-        public double? GetPerimeter()
+        /// <summary>
+        /// Rectangle Perimeter calculation by formula:
+        /// Perimeter = 2 * (Length + Width)
+        /// </summary>
+        public double GetPerimeter()
         {
             Perimeter = 2 * (L + W);
 

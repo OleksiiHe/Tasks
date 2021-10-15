@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace Task1
 {
-    public class TrapezoidViewModel : ViewModelBase, IDataErrorInfo
+    public class TrapezoidViewModel : ViewModelBase, IDataErrorInfo, IBuilder
     {
-        public double? _baseA;
-        public double? BaseA
+        public double _baseA;
+        public double BaseA
         {
             get
             {
@@ -18,8 +19,8 @@ namespace Task1
             }
         }
 
-        public double? _baseB;
-        public double? BaseB
+        public double _baseB;
+        public double BaseB
         {
             get
             {
@@ -32,8 +33,8 @@ namespace Task1
             }
         }
 
-        public double? _sideC;
-        public double? SideC
+        public double _sideC;
+        public double SideC
         {
             get
             {
@@ -46,8 +47,8 @@ namespace Task1
             }
         }
 
-        public double? _sideD;
-        public double? SideD
+        public double _sideD;
+        public double SideD
         {
             get
             {
@@ -60,8 +61,8 @@ namespace Task1
             }
         }
 
-        public double? _heightToB;
-        public double? HeightToB
+        public double _heightToB;
+        public double HeightToB
         {
             get
             {
@@ -71,6 +72,30 @@ namespace Task1
             {
                 _heightToB = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public ICalculator GetFigure(FigureValidator validator)
+        {
+            if (validator.IsParamsValid(BaseA, BaseB, HeightToB)
+                || (validator.IsParamsValid(BaseA, BaseB, SideC, SideD)
+                && validator.IsPolygonExist(BaseA, BaseB, SideC, SideD)))
+            {
+                Trapezoid trapezoid = new Trapezoid
+                {
+                    A = BaseA,
+                    B = BaseB,
+                    C = SideC,
+                    D = SideD,
+                    H = HeightToB
+                };
+
+                return trapezoid;
+            }
+
+            else
+            {
+                throw new NullReferenceException(message: ValidationData.GENERAL_WARNING);
             }
         }
 
@@ -90,20 +115,22 @@ namespace Task1
                 string result = null;
                 FigureValidator figureValidator = new();
 
-                if (name is nameof(BaseA) 
-                    or nameof(BaseB) 
-                    or nameof(SideC) 
+                if (name is nameof(BaseA)
+                    or nameof(BaseB)
+                    or nameof(SideC)
                     or nameof(SideD)
                     or nameof(HeightToB))
                 {
-                    if (figureValidator.IsOutOfRange(BaseA, BaseB, SideC, SideD, HeightToB))
+                    if (!figureValidator.IsEmpty(BaseA, BaseB, SideC, SideD, HeightToB)
+                        && figureValidator.IsOutOfRange(BaseA, BaseB, SideC, SideD, HeightToB))
                     {
-                        result = ValidationData.VALUEISOUTOFRANGE;
+                        result = ValidationData.VALUE_IS_OUT_OF_RANGE;
                     }
 
-                    if (!figureValidator.IsPolygonExist(BaseA, BaseB, SideC, SideD))
+                    if (!figureValidator.IsEmpty(BaseA, BaseB, SideC, SideD)
+                        && !figureValidator.IsPolygonExist(BaseA, BaseB, SideC, SideD))
                     {
-                        result = ValidationData.POLYGONISNOTEXIST;
+                        result = ValidationData.POLYGON_IS_NOT_EXIST;
                     }
                 }
 

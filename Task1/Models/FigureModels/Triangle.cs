@@ -1,26 +1,43 @@
 ﻿namespace Task1
 {
-    public class Triangle : FigureBase, ICalculator //TODO: Fix type to double
+    public class Triangle : FigureBase, ICalculator
     {
         /// <summary>
         /// A is Side
+        /// </summary>
+        public double A { get; set; }
+
+        /// <summary>
         /// B is Base
+        /// </summary>
+        public double B { get; set; }
+
+        /// <summary>
         /// C is Side
+        /// </summary>
+        public double C { get; set; }
+
+        /// <summary>
         /// H is Height to B
         /// </summary>
-        public double? A { get; set; }
-        public double? B { get; set; }
-        public double? C { get; set; }
-        public double? H { get; set; }
+        public double H { get; set; }
 
-        public double? GetArea()
+        /// <summary>
+        /// Triangle Area calculation by formula:
+        /// Area = Height * Base / 2
+        /// </summary>
+        public double GetArea()
         {
             Area = H * B / 2;
 
             return Area;
         }
 
-        public double? GetPerimeter()
+        /// <summary>
+        /// Triangle Perimeter calculation by formula:
+        /// Perimeter = SideA + BaseB + SideC
+        /// </summary>
+        public double GetPerimeter()
         {
             Perimeter = A + B + C;
 
