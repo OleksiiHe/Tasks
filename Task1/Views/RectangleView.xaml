@@ -17,13 +17,13 @@
                    Text="Rectangle parameters"/>
 
         <StackPanel Grid.Row="1"
-                    Style="{StaticResource GeneralRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Length l"/>
             <TextBox Name="LengthLBox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="RectangleViewModel.LengthL"
+                    <Binding Path="LengthL"
                              ValidatesOnExceptions="True"
                              UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -35,13 +35,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2"
-                    Style="{StaticResource GeneralRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Width w"/>
             <TextBox Name="WidthWBox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="RectangleViewModel.WidthW"
+                    <Binding Path="WidthW"
                              ValidatesOnExceptions="True"
                              UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>

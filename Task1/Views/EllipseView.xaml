@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Task1"
              mc:Ignorable="d">
-    <Grid >
+    
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -18,13 +19,13 @@
 
         <StackPanel Grid.Row="1"
                     Margin="0 0 15 0"
-                    Style="{StaticResource GeneralRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Major Radius a"/>
             <TextBox Name="MajorRadiusABox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="EllipseViewModel.MajorRadiusA"
+                    <Binding Path="MajorRadiusA"
                              ValidatesOnExceptions="True"
                              UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -37,13 +38,13 @@
 
         <StackPanel Grid.Row="2"
                     Margin="0 0 15 0"
-                    Style="{StaticResource GeneralRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Minor Radius b"/>
             <TextBox Name="MinorRadiusBBox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="EllipseViewModel.MinorRadiusB"
+                    <Binding Path="MinorRadiusB"
                              ValidatesOnExceptions="True"
                              UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>

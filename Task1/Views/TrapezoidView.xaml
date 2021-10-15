@@ -20,13 +20,13 @@
                    Text="Trapezoid parameters"/>
 
         <StackPanel Grid.Row="1"
-                    Style="{StaticResource GeneralRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Base a"/>
             <TextBox Name="BaseABox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="TrapezoidViewModel.BaseA"
+                    <Binding Path="BaseA"
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -38,13 +38,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2"
-                    Style="{StaticResource GeneralRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Base b"/>
             <TextBox Name="BaseBBox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="TrapezoidViewModel.BaseB"
+                    <Binding Path="BaseB"
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -56,13 +56,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3"
-                    Style="{StaticResource PerimeterRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Side c"/>
             <TextBox Name="SideCBox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="TrapezoidViewModel.SideC"
+                    <Binding Path="SideC"
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -74,13 +74,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="4"
-                    Style="{StaticResource PerimeterRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Side d"/>
             <TextBox Name="SideDBox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="TrapezoidViewModel.SideD"
+                    <Binding Path="SideD"
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
@@ -92,13 +92,13 @@
         </StackPanel>
 
         <StackPanel Grid.Row="5"
-                    Style="{StaticResource AreaRequirement}">
+                    Style="{StaticResource ParameterFormStyle}">
             <TextBlock Style="{StaticResource ParameterTextBlock}"
                        Text="Height h"/>
             <TextBox Name="HeightToBBox"              
                      Style="{StaticResource ParameterTextBox}">
                 <TextBox.Text>
-                    <Binding Path="TrapezoidViewModel.HeightToB"
+                    <Binding Path="HeightToB"
                                  ValidatesOnExceptions="True"
                                  UpdateSourceTrigger="PropertyChanged">
                         <Binding.ValidationRules>
