@@ -1,35 +1,138 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Task1
 {
-    public class FigureValidator //TODO: Create ValidationRules.
+    public class FigureValidator : IFigureValidator
     {
-        public bool IsParamsValid (params double[] args)
+        private readonly double _min = ValidationData.MIN_VALUE;
+        private readonly double _max = ValidationData.MAX_VALUE;
+
+        private Dictionary<string, List<string>> _errors = new();
+
+        public Dictionary<string, List<string>> Errors
         {
-            return !IsEmpty(args) && !IsOutOfRange(args);
+            get
+            {
+                return _errors;
+            }
+            set
+            {
+                _errors = value;
+            }
         }
 
-        public bool IsEmpty(params double[] args)
+        private void AddError(string error, string propertyName)
         {
-            return args.Any(p => string.IsNullOrEmpty(p.ToString()) || p <= 0);
+            if (propertyName != null
+                && !_errors.ContainsKey(propertyName))
+            {
+                _errors[propertyName] = new List<string>();
+            }
+
+            if (propertyName != null
+                && !_errors[propertyName].Contains(error))
+            {
+                _errors[propertyName].Insert(0, error);
+            }
         }
 
-        public bool IsOutOfRange(params double[] args)
+        private void RemoveError(string error, string propertyName)
         {
+            if (propertyName != null
+                && _errors.ContainsKey(propertyName) 
+                && _errors[propertyName].Contains(error))
+            {
+                _errors[propertyName].Remove(error);
 
-            return args.Any(p => p is < ValidationData.MIN_VALUE or > ValidationData.MAX_VALUE);
+                if (_errors[propertyName].Count == 0)
+                {
+                    _errors.Remove(propertyName);
+                }
+            }
+        }
+
+        public bool IsParamsValid (string propertyName, params double[] args)
+        {
+            return IsNotEmpty(propertyName, args) && IsWithinTheRange(propertyName, args);
+        }
+
+        public bool IsNotEmpty(string propertyName, params double[] args)
+        {
+            bool isNotEmpty = !args.Any(p => string.IsNullOrEmpty(p.ToString()));
+
+            if (!isNotEmpty)
+            {
+                AddError(ValidationData.PARAM_IS_EMPTY 
+                    + propertyName, propertyName);
+
+                return isNotEmpty;
+            }
+            else
+            {
+                RemoveError(ValidationData.PARAM_IS_EMPTY 
+                    + propertyName, propertyName);
+
+                return isNotEmpty;
+            }
+        }
+
+        public bool IsWithinTheRange(string propertyName, params double[] args)
+        {
+            bool isWithinTheRange = args.All(p => p is > ValidationData.MIN_VALUE and <= ValidationData.MAX_VALUE);
+
+            if (!isWithinTheRange)
+            {
+                AddError(ValidationData.VALUE_IS_OUT_OF_RANGE 
+                    + _min + " - " 
+                    + _max + ".", 
+                    propertyName);
+
+                return isWithinTheRange;
+            }
+            else
+            {
+                RemoveError(ValidationData.VALUE_IS_OUT_OF_RANGE 
+                    + _min + " - " 
+                    + _max + ".", 
+                    propertyName);
+
+                return isWithinTheRange;
+            }
+        }
+
+        public bool IsParamsRatioCorrect(string greaterPropertyName, string lesserPropertyName, double greaterProperty, double lesserProperty)
+        {
+            bool isParamsRatioCorrect = greaterProperty >= lesserProperty;
+
+            if (!isParamsRatioCorrect)
+            {
+                throw new ArgumentException(greaterPropertyName 
+                    + ValidationData.PARAMS_RATIO_IS_NOT_CORRECT 
+                    + lesserPropertyName);
+            }
+            else
+            {
+                return isParamsRatioCorrect;
+            }
         }
 
         public bool IsPolygonExist(double side1, double side2, double side3, double side4 = 0)
         {
-            return side1 < (side2 + side3 + side4)
-                    && side2 < (side1 + side3 + side4)
-                    && side3 < (side1 + side2 + side4)
-                    && side4 < (side1 + side2 + side3);
+            bool isPolygonExist = side1 < (side2 + side3 + side4)
+                                    && side2 < (side1 + side3 + side4)
+                                    && side3 < (side1 + side2 + side4)
+                                    && side4 < (side1 + side2 + side3);
+
+            if (!isPolygonExist)
+            {
+                throw new ArgumentException(ValidationData.POLYGON_IS_NOT_EXIST);
+            }
+            else
+            {
+                return isPolygonExist;
+            }
         }
     }
 }

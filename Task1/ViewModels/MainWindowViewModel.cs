@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Task1
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        public FigureValidator validator = new FigureValidator();
-
         private string _viewModelPath;
-        
-        private string _formulaType;
+
+        public IFigureValidator Validator
+        {
+            get
+            {
+                return GetFigureValidator();
+            }
+        }
 
         private object _figureViewModel;
         public object FigureViewModel
@@ -26,7 +29,7 @@ namespace Task1
             }
         }
 
-        public IEnumerable<Figures> FigureTypes
+        public static IEnumerable<Figures> FigureTypes
         {
             get
             {
@@ -37,10 +40,7 @@ namespace Task1
         private Figures _figureType;
         public Figures FigureType
         {
-            get
-            {
-                return _figureType;
-            }
+            get => _figureType;
             set
             {
                 _figureType = value;
@@ -50,7 +50,7 @@ namespace Task1
             }
         }
 
-        private string _errorMessage = "";
+        private string _errorMessage;
         public string ErrorMessage
         {
             get
@@ -81,28 +81,29 @@ namespace Task1
         {
             get
             {
-                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure(validator).GetArea());
+                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure().GetArea());
                 return $"Area: {_result}";
             }
         }
         public string PerimeterMessage
         {
-            get
-            {
-                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure(validator).GetPerimeter());
+            get 
+            { 
+                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure().GetPerimeter());
                 return $"Perimeter: {_result}";
             }
         }
+
         private void SetFigure()
         {
             if (FigureType > 0)
-            {
+            { 
                 var name = typeof(MainWindowViewModel).Assembly.GetName().Name;
                 _viewModelPath = $"{name}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
                 FigureViewModel = Activator.CreateInstance(name, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
-
+                ErrorMessage = "";
                 ErrorMessage = "";
             }
         }

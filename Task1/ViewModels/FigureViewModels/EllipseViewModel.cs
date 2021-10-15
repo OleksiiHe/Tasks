@@ -33,55 +33,59 @@ namespace Task1
             }
         }
 
-        public ICalculator GetFigure(FigureValidator validator)
+        public ICalculator GetFigure()
         {
-            if (validator.IsParamsValid(MajorRadiusA, MinorRadiusB))
+            Ellipse ellipse = new()
             {
-                Ellipse ellipse = new()
-                {
-                    A = MajorRadiusA,
-                    B = MinorRadiusB,
-                };
+                A = MajorRadiusA,
+                B = MinorRadiusB,
+            };
 
-                return ellipse;
-            }
-
-            else
-            {
-                throw new NullReferenceException(message: ValidationData.GENERAL_WARNING);
-            }
+            return ellipse;
         }
 
         public string Error
         {
-            get
-            {
-                return null;
-            }
+            get { throw new NotImplementedException(); }
         }
 
-        public string this[string name]
+        public string this[string propertyName]
         {
             get
             {
-                string result = null;
-                FigureValidator figureValidator = new();
+                string errorMessage;
 
-                if (name is nameof(MajorRadiusA) or nameof(MinorRadiusB))
+                if (!GetFigureValidator().Errors.ContainsKey(propertyName))
                 {
-                    if (figureValidator.IsOutOfRange(_majorRadiusA, _minorRadiusB))
-                    {
-                        result = ValidationData.VALUE_IS_OUT_OF_RANGE;
-                    }
-
-                    //Formal. Not necessary
-                    if (_majorRadiusA < _minorRadiusB)
-                    {
-                        result = ValidationData.INCORRECT_RADIUS;
-                    }
+                    errorMessage = null;
+                }
+                else
+                {
+                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
-                return result;
+                CheckParams(GetFigureValidator());
+
+                return errorMessage;
+            }
+        }
+
+        private void CheckParams(IFigureValidator figureValidator)
+        {
+            CanGetArea = CanGetPerimeter = false;
+            GeneralWarning = null;
+
+            if (figureValidator.Errors.Count == 0
+                && figureValidator.IsParamsValid(null, MajorRadiusA, MinorRadiusB))
+            {
+                try
+                {
+                    CanGetArea = CanGetPerimeter = figureValidator.IsParamsRatioCorrect(nameof(MajorRadiusA), nameof(MinorRadiusB), MajorRadiusA, MinorRadiusB);
+                }
+                catch (Exception e)
+                {
+                    GeneralWarning = e.Message;
+                }
             }
         }
     }

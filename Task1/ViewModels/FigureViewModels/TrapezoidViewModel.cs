@@ -75,28 +75,18 @@ namespace Task1
             }
         }
 
-        public ICalculator GetFigure(FigureValidator validator)
+        public ICalculator GetFigure()
         {
-            if (validator.IsParamsValid(BaseA, BaseB, HeightToB)
-                || (validator.IsParamsValid(BaseA, BaseB, SideC, SideD)
-                && validator.IsPolygonExist(BaseA, BaseB, SideC, SideD)))
+            Trapezoid trapezoid = new()
             {
-                Trapezoid trapezoid = new Trapezoid
-                {
-                    A = BaseA,
-                    B = BaseB,
-                    C = SideC,
-                    D = SideD,
-                    H = HeightToB
-                };
+                A = BaseA,
+                B = BaseB,
+                C = SideC,
+                D = SideD,
+                H = HeightToB
+            };
 
-                return trapezoid;
-            }
-
-            else
-            {
-                throw new NullReferenceException(message: ValidationData.GENERAL_WARNING);
-            }
+            return trapezoid;
         }
 
         public string Error
@@ -107,34 +97,56 @@ namespace Task1
             }
         }
 
-        public string this[string name]
+        public string this[string propertyName]
         {
-
             get
             {
-                string result = null;
-                FigureValidator figureValidator = new();
+                string errorMessage;
 
-                if (name is nameof(BaseA)
-                    or nameof(BaseB)
-                    or nameof(SideC)
-                    or nameof(SideD)
-                    or nameof(HeightToB))
+                if (!GetFigureValidator().Errors.ContainsKey(propertyName))
                 {
-                    if (!figureValidator.IsEmpty(BaseA, BaseB, SideC, SideD, HeightToB)
-                        && figureValidator.IsOutOfRange(BaseA, BaseB, SideC, SideD, HeightToB))
-                    {
-                        result = ValidationData.VALUE_IS_OUT_OF_RANGE;
-                    }
-
-                    if (!figureValidator.IsEmpty(BaseA, BaseB, SideC, SideD)
-                        && !figureValidator.IsPolygonExist(BaseA, BaseB, SideC, SideD))
-                    {
-                        result = ValidationData.POLYGON_IS_NOT_EXIST;
-                    }
+                    errorMessage = null;
+                }
+                else
+                {
+                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
-                return result;
+                CheckParams(GetFigureValidator());
+
+                return errorMessage;
+            }
+        }
+
+        private void CheckParams(IFigureValidator figureValidator)
+        {
+            CanGetArea = CanGetPerimeter = false;
+            GeneralWarning = null;
+
+            if (figureValidator.Errors.Count == 0
+                && figureValidator.IsParamsValid(null, BaseA, BaseB, HeightToB))
+            {
+                try
+                {
+                    CanGetArea = true;
+                }
+                catch (Exception e)
+                {
+                    GeneralWarning = e.Message;
+                }
+            }
+
+            if (figureValidator.Errors.Count == 0
+                && figureValidator.IsParamsValid(null, BaseA, BaseB, SideC, SideD))
+            {
+                try
+                {
+                    CanGetPerimeter = figureValidator.IsPolygonExist(BaseA, BaseB, SideC, SideD);
+                }
+                catch (Exception e)
+                {
+                    GeneralWarning = e.Message;
+                }
             }
         }
     }

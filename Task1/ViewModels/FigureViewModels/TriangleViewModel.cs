@@ -61,27 +61,17 @@ namespace Task1
             }
         }
 
-        public ICalculator GetFigure(FigureValidator validator)
+        public ICalculator GetFigure()
         {
-            if (validator.IsParamsValid(BaseB, HeightToB)
-                || (validator.IsParamsValid(SideA, BaseB, SideC)
-                && validator.IsPolygonExist(SideA, BaseB, SideC)))
+            Triangle triangle = new Triangle
             {
-                Triangle triangle = new Triangle
-                {
-                    A = SideA,
-                    B = BaseB,
-                    C = SideC,
-                    H = HeightToB
-                };
+                A = SideA,
+                B = BaseB,
+                C = SideC,
+                H = HeightToB
+            };
 
-                return triangle;
-            }
-
-            else
-            {
-                throw new NullReferenceException(message: ValidationData.GENERAL_WARNING);
-            }
+            return triangle;
         }
 
         public string Error
@@ -92,33 +82,56 @@ namespace Task1
             }
         }
 
-        public string this[string name]
+        public string this[string propertyName]
         {
-
             get
             {
-                string result = null;
-                FigureValidator figureValidator = new();
+                string errorMessage;
 
-                if (name is nameof(SideA)
-                    or nameof(BaseB)
-                    or nameof(SideC)
-                    or nameof(HeightToB))
+                if (!GetFigureValidator().Errors.ContainsKey(propertyName))
                 {
-                    if (!figureValidator.IsEmpty(SideA, BaseB, SideC, HeightToB)
-                        && figureValidator.IsOutOfRange(SideA, BaseB, SideC, HeightToB))
-                    {
-                        result = ValidationData.VALUE_IS_OUT_OF_RANGE;
-                    }
-
-                    if (!figureValidator.IsEmpty(SideA, BaseB, SideC)
-                        && !figureValidator.IsPolygonExist(SideA, BaseB, SideC))
-                    {
-                        result = ValidationData.POLYGON_IS_NOT_EXIST;
-                    }
+                    errorMessage = null;
+                }
+                else
+                {
+                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
-                return result;
+                CheckParams(GetFigureValidator());
+
+                return errorMessage;
+            }
+        }
+
+        private void CheckParams(IFigureValidator figureValidator)
+        {
+            CanGetArea = CanGetPerimeter = false;
+            GeneralWarning = null;
+
+            if (figureValidator.Errors.Count == 0
+                && figureValidator.IsParamsValid(null, BaseB, HeightToB))
+            {
+                try
+                {
+                    CanGetArea = true;
+                }
+                catch (Exception e)
+                {
+                    GeneralWarning = e.Message;
+                }
+            }
+
+            if (figureValidator.Errors.Count == 0
+                && figureValidator.IsParamsValid(null, SideA, BaseB, SideC))
+            {
+                try
+                {
+                    CanGetPerimeter = figureValidator.IsPolygonExist(SideA, BaseB, SideC);
+                }
+                catch (Exception e)
+                {
+                    GeneralWarning = e.Message;
+                }
             }
         }
     }

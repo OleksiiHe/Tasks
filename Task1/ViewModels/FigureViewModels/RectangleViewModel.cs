@@ -34,24 +34,17 @@ namespace Task1
             }
         }
 
-        public ICalculator GetFigure(FigureValidator validator)
+        public ICalculator GetFigure()
         {
-            if (validator.IsParamsValid(WidthW, LengthL))
+            Rectangle rectangle = new Rectangle
             {
-                Rectangle rectangle = new Rectangle
-                {
-                    L = LengthL,
-                    W = WidthW,
-                };
+                L = LengthL,
+                W = WidthW,
+            };
 
-                return rectangle;
-            }
-
-            else
-            {
-                throw new NullReferenceException(message: ValidationData.GENERAL_WARNING);
-            }
+            return rectangle;
         }
+
         public string Error
         {
             get
@@ -60,28 +53,44 @@ namespace Task1
             }
         }
 
-        public string this[string name]
+        public string this[string propertyName]
         {
             get
             {
-                string result = null;
-                FigureValidator figureValidator = new();
+                string errorMessage;
 
-                if (name is nameof(LengthL) or nameof(WidthW))
+                if (!GetFigureValidator().Errors.ContainsKey(propertyName))
                 {
-                    if (figureValidator.IsOutOfRange(_lengthL, _widthW))
-                    {
-                        result = ValidationData.VALUE_IS_OUT_OF_RANGE;
-                    }
-
-                    //Formal. Not necessary
-                    if (_lengthL < _widthW)
-                    {
-                        result = ValidationData.INCORRECT_SIDE;
-                    }
+                    errorMessage = null;
+                }
+                else
+                {
+                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
-                return result;
+                CheckParams(GetFigureValidator());
+
+                return errorMessage;
+            }
+        }
+
+        private void CheckParams(IFigureValidator figureValidator)
+        {
+            CanGetArea = CanGetPerimeter = false;
+            GeneralWarning = null;
+
+            if (figureValidator.Errors.Count == 0
+                && figureValidator.IsParamsValid(null, LengthL, WidthW))
+            {
+                try
+                {
+                    CanGetArea = CanGetPerimeter = figureValidator.IsParamsRatioCorrect(nameof(LengthL), 
+                        nameof(WidthW), LengthL, WidthW);
+                }
+                catch (Exception e)
+                {
+                    GeneralWarning = e.Message;
+                }
             }
         }
     }
