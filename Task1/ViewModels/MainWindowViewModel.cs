@@ -64,20 +64,6 @@ namespace Task1
             }
         }
 
-        private string _buttonVisibility = "Collapsed";
-        public string ButtonVisibility
-        {
-            get
-            {
-                return _buttonVisibility;
-            }
-            set
-            {
-                _buttonVisibility = value;
-                OnPropertyChanged();
-            }
-        }
-
         public string AreaMessage
         {
             get
@@ -156,7 +142,6 @@ namespace Task1
                 _viewModelPath = $"{name}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
                 FigureViewModel = Activator.CreateInstance(name, _viewModelPath).Unwrap();
 
-                ButtonVisibility = "Visible";
                 ErrorMessage = "";
 
                 OnPropertyChanged(nameof(AreaMessage));

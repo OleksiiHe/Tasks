@@ -75,7 +75,6 @@
                     Content="Get Area"
                     Style="{StaticResource GetResultButton}"
                     Command="{Binding GetAreaCommand}"
-                    Visibility="{Binding ButtonVisibility}"
                     IsEnabled="{Binding FigureViewModel.CanGetArea}"/>
 
         <Button x:Name="GetPerimeterButton"
@@ -84,7 +83,6 @@
                     Content="Get Perimeter"
                     Style="{StaticResource GetResultButton}"
                     Command="{Binding GetPerimeterCommand}"
-                    Visibility="{Binding ButtonVisibility}"
                     IsEnabled="{Binding FigureViewModel.CanGetPerimeter}"/>
 
         <TextBlock  Name="AreaResultBlock"
