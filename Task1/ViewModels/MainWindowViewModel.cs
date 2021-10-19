@@ -124,17 +124,29 @@ namespace Task1
 
         private RelayCommand _getAreaCommand;
 
-        public RelayCommand GetAreaCommand => _getAreaCommand ??= new RelayCommand(obj =>
-                                                            {
-                                                                OnPropertyChanged(nameof(AreaMessage));
-                                                            });
+        public RelayCommand GetAreaCommand
+        {
+            get
+            {
+                return _getAreaCommand ??= new RelayCommand(obj =>
+                             {
+                                 OnPropertyChanged(nameof(AreaMessage));
+                             });
+            }
+        }
 
         private RelayCommand _getPerimeterCommand;
 
-        public RelayCommand GetPerimeterCommand => _getPerimeterCommand ??= new RelayCommand(obj =>
-                                                                 {
-                                                                     OnPropertyChanged(nameof(PerimeterMessage));
-                                                                 });
+        public RelayCommand GetPerimeterCommand
+        {
+            get
+            {
+                return _getPerimeterCommand ??= new RelayCommand(obj =>
+                             {
+                                 OnPropertyChanged(nameof(PerimeterMessage));
+                             });
+            }
+        }
 
         private void SetFigure()
         {
