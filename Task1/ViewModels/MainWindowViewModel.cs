@@ -77,22 +77,64 @@ namespace Task1
                 OnPropertyChanged();
             }
         }
+
         public string AreaMessage
         {
             get
             {
-                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure().GetArea());
-                return $"Area: {_result}";
+                double result = 0;
+
+                if (FigureViewModel != null)
+                {
+                    result = RoundResult((FigureViewModel as IBuilder).GetFigure().GetArea());
+                }
+
+                if (result > 0)
+                {
+                    return $"Area: {result}";
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
+
         public string PerimeterMessage
         {
-            get 
-            { 
-                var _result = RoundResult((FigureViewModel as IBuilder).GetFigure().GetPerimeter());
-                return $"Perimeter: {_result}";
+            get
+            {
+                double result = 0;
+
+                if (FigureViewModel != null)
+                {
+                    result = RoundResult((FigureViewModel as IBuilder).GetFigure().GetPerimeter());
+                }
+
+                if (result > 0)
+                {
+                    return $"Perimeter: {result}";
+                }
+                else
+                {
+                    return string.Empty;
+                }
             }
         }
+
+        private RelayCommand _getAreaCommand;
+
+        public RelayCommand GetAreaCommand => _getAreaCommand ??= new RelayCommand(obj =>
+                                                            {
+                                                                OnPropertyChanged(nameof(AreaMessage));
+                                                            });
+
+        private RelayCommand _getPerimeterCommand;
+
+        public RelayCommand GetPerimeterCommand => _getPerimeterCommand ??= new RelayCommand(obj =>
+                                                                 {
+                                                                     OnPropertyChanged(nameof(PerimeterMessage));
+                                                                 });
 
         private void SetFigure()
         {
@@ -104,7 +146,9 @@ namespace Task1
 
                 ButtonVisibility = "Visible";
                 ErrorMessage = "";
-                ErrorMessage = "";
+
+                OnPropertyChanged(nameof(AreaMessage));
+                OnPropertyChanged(nameof(PerimeterMessage));
             }
         }
 
