@@ -6,8 +6,7 @@ namespace Task1
 {
     public static class FigureValidator
     {
-        private static Dictionary<string, List<string>> _errors = new();
-
+        private static Dictionary<string, List<string>> _errors = new ();
         public static Dictionary<string, List<string>> Errors
         {
             get
@@ -23,29 +22,29 @@ namespace Task1
         private static void AddError(string error, string propertyName)
         {
             if (propertyName != null
-                && !_errors.ContainsKey(propertyName))
+                && !Errors.ContainsKey(propertyName))
             {
-                _errors[propertyName] = new List<string>();
+                Errors[propertyName] = new List<string>();
             }
 
             if (propertyName != null
-                && !_errors[propertyName].Contains(error))
+                && !Errors[propertyName].Contains(error))
             {
-                _errors[propertyName].Insert(0, error);
+                Errors[propertyName].Insert(0, error);
             }
         }
 
         private static void RemoveError(string error, string propertyName)
         {
             if (propertyName != null
-                && _errors.ContainsKey(propertyName) 
-                && _errors[propertyName].Contains(error))
+                && Errors.ContainsKey(propertyName) 
+                && Errors[propertyName].Contains(error))
             {
-                _errors[propertyName].Remove(error);
+                Errors[propertyName].Remove(error);
 
-                if (_errors[propertyName].Count == 0)
+                if (Errors[propertyName].Count == 0)
                 {
-                    _errors.Remove(propertyName);
+                    Errors.Remove(propertyName);
                 }
             }
         }
@@ -61,15 +60,13 @@ namespace Task1
 
             if (!isNotEmpty)
             {
-                AddError(ValidationData.PARAM_IS_EMPTY 
-                    + propertyName, propertyName);
+                AddError(ValidationData.PARAM_IS_EMPTY + propertyName, propertyName);
 
                 return isNotEmpty;
             }
             else
             {
-                RemoveError(ValidationData.PARAM_IS_EMPTY 
-                    + propertyName, propertyName);
+                RemoveError(ValidationData.PARAM_IS_EMPTY + propertyName, propertyName);
 
                 return isNotEmpty;
             }
@@ -81,32 +78,33 @@ namespace Task1
 
             if (!isWithinTheRange)
             {
-                AddError(ValidationData.VALUE_IS_OUT_OF_RANGE 
-                    + ValidationData.MIN_VALUE + " - " 
-                    + ValidationData.MAX_VALUE + ".", 
+                AddError(ValidationData.VALUE_IS_OUT_OF_RANGE
+                    + ValidationData.MIN_VALUE + " - "
+                    + ValidationData.MAX_VALUE + ".",
                     propertyName);
 
                 return isWithinTheRange;
             }
             else
             {
-                RemoveError(ValidationData.VALUE_IS_OUT_OF_RANGE 
-                    + ValidationData.MIN_VALUE + " - " 
-                    + ValidationData.MAX_VALUE + ".", 
+                RemoveError(ValidationData.VALUE_IS_OUT_OF_RANGE
+                    + ValidationData.MIN_VALUE + " - "
+                    + ValidationData.MAX_VALUE + ".",
                     propertyName);
 
                 return isWithinTheRange;
             }
         }
 
-        public static bool IsParamsRatioCorrect(string greaterPropertyName, string lesserPropertyName, double greaterProperty, double lesserProperty)
+        public static bool IsParamsRatioCorrect(
+            string greaterPropertyName, string lesserPropertyName, double greaterProperty, double lesserProperty)
         {
             bool isParamsRatioCorrect = greaterProperty >= lesserProperty;
 
             if (!isParamsRatioCorrect)
             {
-                throw new ArgumentException(greaterPropertyName 
-                    + ValidationData.PARAMS_RATIO_IS_NOT_CORRECT 
+                throw new ArgumentException(greaterPropertyName
+                    + ValidationData.PARAMS_RATIO_IS_NOT_CORRECT
                     + lesserPropertyName);
             }
             else
