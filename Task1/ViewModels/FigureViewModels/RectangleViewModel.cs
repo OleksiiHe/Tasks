@@ -59,32 +59,32 @@ namespace Task1
             {
                 string errorMessage;
 
-                if (!GetFigureValidator().Errors.ContainsKey(propertyName))
+                if (!FigureValidator.Errors.ContainsKey(propertyName))
                 {
                     errorMessage = null;
                 }
                 else
                 {
-                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = String.Join(Environment.NewLine, FigureValidator.Errors[propertyName]);
                 }
 
-                CheckParams(GetFigureValidator());
+                CheckParams();
 
                 return errorMessage;
             }
         }
 
-        private void CheckParams(IFigureValidator figureValidator)
+        private void CheckParams()
         {
             CanGetArea = CanGetPerimeter = false;
             GeneralWarning = null;
 
-            if (figureValidator.Errors.Count == 0
-                && figureValidator.IsParamsValid(null, LengthL, WidthW))
+            if (FigureValidator.Errors.Count == 0
+                && FigureValidator.IsParamsValid(null, LengthL, WidthW))
             {
                 try
                 {
-                    CanGetArea = CanGetPerimeter = figureValidator.IsParamsRatioCorrect(nameof(LengthL), 
+                    CanGetArea = CanGetPerimeter = FigureValidator.IsParamsRatioCorrect(nameof(LengthL), 
                         nameof(WidthW), LengthL, WidthW);
                 }
                 catch (Exception e)

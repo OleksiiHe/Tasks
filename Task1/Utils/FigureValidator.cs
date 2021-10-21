@@ -4,14 +4,11 @@ using System.Linq;
 
 namespace Task1
 {
-    public class FigureValidator : IFigureValidator
+    public static class FigureValidator
     {
-        private readonly double _min = ValidationData.MIN_VALUE;
-        private readonly double _max = ValidationData.MAX_VALUE;
+        private static Dictionary<string, List<string>> _errors = new();
 
-        private Dictionary<string, List<string>> _errors = new();
-
-        public Dictionary<string, List<string>> Errors
+        public static Dictionary<string, List<string>> Errors
         {
             get
             {
@@ -23,7 +20,7 @@ namespace Task1
             }
         }
 
-        private void AddError(string error, string propertyName)
+        private static void AddError(string error, string propertyName)
         {
             if (propertyName != null
                 && !_errors.ContainsKey(propertyName))
@@ -38,7 +35,7 @@ namespace Task1
             }
         }
 
-        private void RemoveError(string error, string propertyName)
+        private static void RemoveError(string error, string propertyName)
         {
             if (propertyName != null
                 && _errors.ContainsKey(propertyName) 
@@ -53,12 +50,12 @@ namespace Task1
             }
         }
 
-        public bool IsParamsValid (string propertyName, params double[] args)
+        public static bool IsParamsValid (string propertyName, params double[] args)
         {
             return IsNotEmpty(propertyName, args) && IsWithinTheRange(propertyName, args);
         }
 
-        public bool IsNotEmpty(string propertyName, params double[] args)
+        public static bool IsNotEmpty(string propertyName, params double[] args)
         {
             bool isNotEmpty = !args.Any(p => string.IsNullOrEmpty(p.ToString()));
 
@@ -78,15 +75,15 @@ namespace Task1
             }
         }
 
-        public bool IsWithinTheRange(string propertyName, params double[] args)
+        public static bool IsWithinTheRange(string propertyName, params double[] args)
         {
             bool isWithinTheRange = args.All(p => p is > ValidationData.MIN_VALUE and <= ValidationData.MAX_VALUE);
 
             if (!isWithinTheRange)
             {
                 AddError(ValidationData.VALUE_IS_OUT_OF_RANGE 
-                    + _min + " - " 
-                    + _max + ".", 
+                    + ValidationData.MIN_VALUE + " - " 
+                    + ValidationData.MAX_VALUE + ".", 
                     propertyName);
 
                 return isWithinTheRange;
@@ -94,15 +91,15 @@ namespace Task1
             else
             {
                 RemoveError(ValidationData.VALUE_IS_OUT_OF_RANGE 
-                    + _min + " - " 
-                    + _max + ".", 
+                    + ValidationData.MIN_VALUE + " - " 
+                    + ValidationData.MAX_VALUE + ".", 
                     propertyName);
 
                 return isWithinTheRange;
             }
         }
 
-        public bool IsParamsRatioCorrect(string greaterPropertyName, string lesserPropertyName, double greaterProperty, double lesserProperty)
+        public static bool IsParamsRatioCorrect(string greaterPropertyName, string lesserPropertyName, double greaterProperty, double lesserProperty)
         {
             bool isParamsRatioCorrect = greaterProperty >= lesserProperty;
 
@@ -118,7 +115,7 @@ namespace Task1
             }
         }
 
-        public bool IsPolygonExist(double side1, double side2, double side3, double side4 = 0)
+        public static bool IsPolygonExist(double side1, double side2, double side3, double side4 = 0)
         {
             bool isPolygonExist = side1 < (side2 + side3 + side4)
                                     && side2 < (side1 + side3 + side4)
