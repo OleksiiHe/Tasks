@@ -5,7 +5,7 @@ namespace Task1
 {
     public class TrapezoidViewModel : ViewModelBase, IDataErrorInfo, IBuilder
     {
-        public double _baseA;
+        private double _baseA;
         public double BaseA
         {
             get
@@ -19,7 +19,7 @@ namespace Task1
             }
         }
 
-        public double _baseB;
+        private double _baseB;
         public double BaseB
         {
             get
@@ -33,7 +33,7 @@ namespace Task1
             }
         }
 
-        public double _sideC;
+        private double _sideC;
         public double SideC
         {
             get
@@ -47,7 +47,7 @@ namespace Task1
             }
         }
 
-        public double _sideD;
+        private double _sideD;
         public double SideD
         {
             get
@@ -61,7 +61,7 @@ namespace Task1
             }
         }
 
-        public double _heightToB;
+        private double _heightToB;
         public double HeightToB
         {
             get
@@ -77,13 +77,13 @@ namespace Task1
 
         public ICalculator GetFigure()
         {
-            Trapezoid trapezoid = new()
+            Trapezoid trapezoid = new ()
             {
                 A = BaseA,
                 B = BaseB,
                 C = SideC,
                 D = SideD,
-                H = HeightToB
+                H = HeightToB,
             };
 
             return trapezoid;

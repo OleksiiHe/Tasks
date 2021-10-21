@@ -3,27 +3,27 @@
     public class Trapezoid : FigureBase, ICalculator
     {
         /// <summary>
-        /// A is Base
+        /// A is Base.
         /// </summary>
         public double A { get; set; }
 
         /// <summary>
-        /// B is Base
+        /// B is Base.
         /// </summary>
         public double B { get; set; }
 
         /// <summary>
-        /// C is Side
+        /// C is Side.
         /// </summary>
         public double C { get; set; }
 
         /// <summary>
-        /// D is Side
+        /// D is Side.
         /// </summary>
         public double D { get; set; }
 
         /// <summary>
-        /// H is Height to B
+        /// H is Height to B.
         /// </summary>
         public double H { get; set; }
 

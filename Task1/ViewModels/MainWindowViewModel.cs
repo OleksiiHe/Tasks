@@ -123,7 +123,6 @@ namespace Task1
         }
 
         private RelayCommand _getAreaCommand;
-
         public RelayCommand GetAreaCommand
         {
             get
@@ -136,7 +135,6 @@ namespace Task1
         }
 
         private RelayCommand _getPerimeterCommand;
-
         public RelayCommand GetPerimeterCommand
         {
             get
@@ -151,13 +149,13 @@ namespace Task1
         private void SetFigure()
         {
             if (FigureType > 0)
-            { 
+            {
                 var name = typeof(MainWindowViewModel).Assembly.GetName().Name;
                 _viewModelPath = $"{name}.{Enum.GetName(typeof(Figures), FigureType)}ViewModel";
                 FigureViewModel = Activator.CreateInstance(name, _viewModelPath).Unwrap();
 
                 ButtonVisibility = "Visible";
-                ErrorMessage = "";
+                ErrorMessage = string.Empty;
 
                 OnPropertyChanged(nameof(AreaMessage));
                 OnPropertyChanged(nameof(PerimeterMessage));

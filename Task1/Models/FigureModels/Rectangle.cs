@@ -3,12 +3,12 @@
     public class Rectangle : FigureBase, ICalculator
     {
         /// <summary>
-        /// L is Length
+        /// L is Length.
         /// </summary>
         public double L { get; set; }
 
         /// <summary>
-        /// W is Width
+        /// W is Width.
         /// </summary>
         public double W { get; set; }
 

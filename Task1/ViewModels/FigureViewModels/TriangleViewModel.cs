@@ -5,7 +5,7 @@ namespace Task1
 {
     public class TriangleViewModel : ViewModelBase, IDataErrorInfo, IBuilder
     {
-        public double _sideA;
+        private double _sideA;
         public double SideA
         {
             get
@@ -19,7 +19,7 @@ namespace Task1
             }
         }
 
-        public double _baseB;
+        private double _baseB;
         public double BaseB
         {
             get
@@ -33,7 +33,7 @@ namespace Task1
             }
         }
 
-        public double _sideC;
+        private double _sideC;
         public double SideC
         {
             get
@@ -47,7 +47,7 @@ namespace Task1
             }
         }
 
-        public double _heightToB;
+        private double _heightToB;
         public double HeightToB
         {
             get
@@ -63,12 +63,12 @@ namespace Task1
 
         public ICalculator GetFigure()
         {
-            Triangle triangle = new Triangle
+            Triangle triangle = new ()
             {
                 A = SideA,
                 B = BaseB,
                 C = SideC,
-                H = HeightToB
+                H = HeightToB,
             };
 
             return triangle;
@@ -94,7 +94,7 @@ namespace Task1
                 }
                 else
                 {
-                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
                 CheckParams(GetFigureValidator());
