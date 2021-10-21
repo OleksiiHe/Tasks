@@ -12,8 +12,6 @@ namespace Task1
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             double parameter = 0;
-            Min = ValidationData.MIN_VALUE;
-            Max = ValidationData.MAX_VALUE;
 
             try
             {
