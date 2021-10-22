@@ -48,12 +48,6 @@ namespace Task1
             }
         }
 
-        private readonly IFigureValidator _figureValidator = new FigureValidator();
-        protected IFigureValidator GetFigureValidator()
-        {
-            return _figureValidator;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string name = null)
         {

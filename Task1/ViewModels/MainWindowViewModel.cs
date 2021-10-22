@@ -7,14 +7,6 @@ namespace Task1
     {
         private string _viewModelPath;
 
-        public IFigureValidator Validator
-        {
-            get
-            {
-                return GetFigureValidator();
-            }
-        }
-
         private object _figureViewModel;
         public object FigureViewModel
         {

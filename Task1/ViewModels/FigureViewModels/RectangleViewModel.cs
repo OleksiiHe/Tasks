@@ -59,7 +59,7 @@ namespace Task1
             {
                 string errorMessage;
 
-                if (!GetFigureValidator().Errors.ContainsKey(propertyName))
+                if (!FigureValidator.Errors.ContainsKey(propertyName))
                 {
                     errorMessage = null;
                 }
@@ -68,19 +68,19 @@ namespace Task1
                     errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
-                CheckParams(GetFigureValidator());
+                CheckParams();
 
                 return errorMessage;
             }
         }
 
-        private void CheckParams(IFigureValidator figureValidator)
+        private void CheckParams()
         {
             CanGetArea = CanGetPerimeter = false;
             GeneralWarning = null;
 
-            if (figureValidator.Errors.Count == 0
-                && figureValidator.IsParamsValid(null, LengthL, WidthW))
+            if (FigureValidator.Errors.Count == 0
+                && FigureValidator.IsParamsValid(null, LengthL, WidthW))
             {
                 try
                 {

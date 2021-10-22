@@ -103,28 +103,28 @@ namespace Task1
             {
                 string errorMessage;
 
-                if (!GetFigureValidator().Errors.ContainsKey(propertyName))
+                if (!FigureValidator.Errors.ContainsKey(propertyName))
                 {
                     errorMessage = null;
                 }
                 else
                 {
-                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = string.Join(Environment.NewLine, FigureValidator.Errors[propertyName]);
                 }
 
-                CheckParams(GetFigureValidator());
+                CheckParams();
 
                 return errorMessage;
             }
         }
 
-        private void CheckParams(IFigureValidator figureValidator)
+        private void CheckParams()
         {
             CanGetArea = CanGetPerimeter = false;
             GeneralWarning = null;
 
-            if (figureValidator.Errors.Count == 0
-                && figureValidator.IsParamsValid(null, BaseA, BaseB, HeightToB))
+            if (FigureValidator.Errors.Count == 0
+                && FigureValidator.IsParamsValid(null, BaseA, BaseB, HeightToB))
             {
                 try
                 {
@@ -136,12 +136,12 @@ namespace Task1
                 }
             }
 
-            if (figureValidator.Errors.Count == 0
-                && figureValidator.IsParamsValid(null, BaseA, BaseB, SideC, SideD))
+            if (FigureValidator.Errors.Count == 0
+                && FigureValidator.IsParamsValid(null, BaseA, BaseB, SideC, SideD))
             {
                 try
                 {
-                    CanGetPerimeter = figureValidator.IsPolygonExist(BaseA, BaseB, SideC, SideD);
+                    CanGetPerimeter = FigureValidator.IsPolygonExist(BaseA, BaseB, SideC, SideD);
                 }
                 catch (Exception e)
                 {
