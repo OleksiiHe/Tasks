@@ -1,6 +1,6 @@
 ﻿namespace Task1
 {
-    public class Triangle : FigureBase, ICalculator
+    public class Triangle : ICalculator
     {
         /// <summary>
         /// A is Side.
@@ -28,9 +28,7 @@
         /// </summary>
         public double GetArea()
         {
-            Area = H * B / 2;
-
-            return Area;
+            return H * B / 2;
         }
 
         /// <summary>
@@ -39,9 +37,7 @@
         /// </summary>
         public double GetPerimeter()
         {
-            Perimeter = A + B + C;
-
-            return Perimeter;
+            return A + B + C;
         }
     }
 }

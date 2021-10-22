@@ -1,6 +1,6 @@
 ﻿namespace Task1
 {
-    public class Rectangle : FigureBase, ICalculator
+    public class Rectangle : ICalculator
     {
         /// <summary>
         /// L is Length.
@@ -18,9 +18,7 @@
         /// </summary>
         public double GetArea()
         {
-            Area = W * L;
-
-            return Area;
+            return W * L;
         }
 
         /// <summary>
@@ -29,9 +27,7 @@
         /// </summary>
         public double GetPerimeter()
         {
-            Perimeter = 2 * (L + W);
-
-            return Perimeter;
+            return 2 * (L + W);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Task1
 {
-    public class Trapezoid : FigureBase, ICalculator
+    public class Trapezoid : ICalculator
     {
         /// <summary>
         /// A is Base.
@@ -33,9 +33,7 @@
         /// </summary>
         public double GetArea()
         {
-            Area = (A + B) / 2 * H;
-
-            return Area;
+            return (A + B) / 2 * H;
         }
 
         /// <summary>
@@ -44,9 +42,7 @@
         /// </summary>
         public double GetPerimeter()
         {
-            Perimeter = A + B + C + D;
-
-            return Perimeter;
+            return A + B + C + D;
         }
     }
 }

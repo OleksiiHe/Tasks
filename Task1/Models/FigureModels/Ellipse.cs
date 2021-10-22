@@ -2,7 +2,7 @@
 
 namespace Task1
 {
-    public class Ellipse : FigureBase, ICalculator
+    public class Ellipse : ICalculator
     {
         /// <summary>
         /// A is MajorRadius.
@@ -20,9 +20,7 @@ namespace Task1
         /// </summary>
         public double GetArea()
         {
-            Area = Math.PI * A * B;
-
-            return Area;
+            return Math.PI * A * B;            
         }
 
         /// <summary>
@@ -31,10 +29,7 @@ namespace Task1
         /// </summary>
         public double GetPerimeter()
         {
-            //Perimeter = 4 * ((_pi * a * b + Math.Pow((double)(a - b), 2)) / (a + b));
-            Perimeter = 4 * (((Math.PI * A * B) + Math.Pow(A - B, 2)) / (A + B));
-
-            return Perimeter;
+            return 4 * ((Math.PI * A * B + Math.Pow(A - B, 2)) / (A + B));
         }
     }
 }
