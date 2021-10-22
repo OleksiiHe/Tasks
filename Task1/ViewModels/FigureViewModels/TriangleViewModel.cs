@@ -94,7 +94,7 @@ namespace Task1
                 }
                 else
                 {
-                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = string.Join(Environment.NewLine, FigureValidator.Errors[propertyName]);
                 }
 
                 CheckParams();

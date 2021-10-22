@@ -65,7 +65,7 @@ namespace Task1
                 }
                 else
                 {
-                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = string.Join(Environment.NewLine, FigureValidator.Errors[propertyName]);
                 }
 
                 CheckParams();
@@ -84,7 +84,7 @@ namespace Task1
             {
                 try
                 {
-                    CanGetArea = CanGetPerimeter = figureValidator.IsParamsRatioCorrect(
+                    CanGetArea = CanGetPerimeter = FigureValidator.IsParamsRatioCorrect(
                         nameof(LengthL), nameof(WidthW), LengthL, WidthW);
                 }
                 catch (Exception e)
