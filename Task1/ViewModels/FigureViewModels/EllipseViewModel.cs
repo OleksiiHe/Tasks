@@ -35,7 +35,7 @@ namespace Task1
 
         public ICalculator GetFigure()
         {
-            Ellipse ellipse = new()
+            Ellipse ellipse = new ()
             {
                 A = MajorRadiusA,
                 B = MinorRadiusB,
@@ -61,7 +61,7 @@ namespace Task1
                 }
                 else
                 {
-                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
                 CheckParams(GetFigureValidator());

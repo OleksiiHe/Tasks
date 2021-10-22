@@ -17,6 +17,7 @@ namespace Task1
             {
                 return _errors;
             }
+
             set
             {
                 _errors = value;

@@ -36,7 +36,7 @@ namespace Task1
 
         public ICalculator GetFigure()
         {
-            Rectangle rectangle = new Rectangle
+            Rectangle rectangle = new ()
             {
                 L = LengthL,
                 W = WidthW,
@@ -65,7 +65,7 @@ namespace Task1
                 }
                 else
                 {
-                    errorMessage = String.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
+                    errorMessage = string.Join(Environment.NewLine, GetFigureValidator().Errors[propertyName]);
                 }
 
                 CheckParams(GetFigureValidator());
@@ -84,8 +84,8 @@ namespace Task1
             {
                 try
                 {
-                    CanGetArea = CanGetPerimeter = figureValidator.IsParamsRatioCorrect(nameof(LengthL), 
-                        nameof(WidthW), LengthL, WidthW);
+                    CanGetArea = CanGetPerimeter = figureValidator.IsParamsRatioCorrect(
+                        nameof(LengthL), nameof(WidthW), LengthL, WidthW);
                 }
                 catch (Exception e)
                 {

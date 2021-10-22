@@ -3,22 +3,22 @@
     public class Triangle : FigureBase, ICalculator
     {
         /// <summary>
-        /// A is Side
+        /// A is Side.
         /// </summary>
         public double A { get; set; }
 
         /// <summary>
-        /// B is Base
+        /// B is Base.
         /// </summary>
         public double B { get; set; }
 
         /// <summary>
-        /// C is Side
+        /// C is Side.
         /// </summary>
         public double C { get; set; }
 
         /// <summary>
-        /// H is Height to B
+        /// H is Height to B.
         /// </summary>
         public double H { get; set; }
 
