@@ -139,9 +139,9 @@ namespace Task1
             }
         }
 
-        private double RoundResult(double result)
+        private static double RoundResult(double result)
         {
-            return Math.Round((double)result, 5);
+            return Math.Round(result, ValidationData.NUMBER_OF_DIGITS_TO_ROUND);
         }
     }
 }

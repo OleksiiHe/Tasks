@@ -5,6 +5,8 @@
         public const double MIN_VALUE = 0;
         public const double MAX_VALUE = 100;
 
+        public const int NUMBER_OF_DIGITS_TO_ROUND = 5;
+
         public const string ILLEGAL_CHARACTERS = "Illegal characters or ";
 
         public const string PARAM_IS_EMPTY = "Please fill the field ";
