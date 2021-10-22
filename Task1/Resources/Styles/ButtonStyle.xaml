@@ -14,5 +14,11 @@
                 Value="0 10 0 10"/>
         <Setter Property="FontWeight"
                 Value="Bold"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=FigureTypeComboBox, Path=SelectedItem}"
+                                 Value="{x:Null}">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>
